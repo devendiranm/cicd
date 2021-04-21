@@ -24,7 +24,7 @@ def call(Map pipelineParams)
     		projectGroupId = 'GroupId'
     		projectVersion = 'Version'
      		artifactType = 'Packaging'
-          	bitbucket_repo = "claims-cashless-core-cicdtest"
+          	bitbucket_repo = "galaxy"
           	branch_type = 'branch_type'
           	branch = 'branch'
       	}
