@@ -135,7 +135,7 @@ pipeline
 							inventory: 'hosts',
 							playbook: 'cls_templates_playbook_sit.yml',
 							sudoUser: null,
-							extraVars: [Env:"${params.Environment}",PROPERTIES:"${env.WORKSPACE}/Files/PropertiesFile/",TEMPLATES_EXTENSION:"${extension_jar}",JBOSS_HOME_PATH:"${jboss_home_path}"]       
+							extraVars: [Env:"${params.Environment}",GROUP_ID:"${bitbucket_repo_name}",ARTIFACT_ID:"${bitbucket_branch_type}",VERSION:"${bitbucket_branch_name}",PROPERTIES:"${env.WORKSPACE}/Files/PropertiesFile/",TEMPLATES_EXTENSION:"${extension_jar}",JBOSS_HOME_PATH:"${jboss_home_path}"]       
 						)
             	}
             }
