@@ -90,7 +90,7 @@ pipeline
 			{
 				expression
 				{
-					return params.TEMPLATE == 'false';
+					return params.TEMPLATE == false;
 				}
 			}
 			steps
@@ -120,7 +120,7 @@ pipeline
 			{
 				expression
 				{
-					return params.TEMPLATE == 'true';
+					return params.TEMPLATE == true;
 				}
 			}
 			steps
