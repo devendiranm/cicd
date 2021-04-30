@@ -1,0 +1,26 @@
+{
+"SIT": {
+    "galaxy_cls_property_url": "",
+  	"galaxy_cls_property_branch": "",
+	"nexus_repo_cls_url": "",
+	"cashless_bitbucket_repo_name": "",
+	"cashless_bitbucket_branch_type": "",
+	"cashless_bitbucket_branch_name": "",
+	"cashless_extension": "",
+	"templates_extension": "",
+	"galaxy_java_home": "/app/software/jdk1.8.0_151",
+	"galaxy_cls_jboss_home_path": "",
+	"email": "release_team@starhealth.in,bcc:build.alert@starhealth.in"
+		},
+"UAT": {
+    "galaxy_cls_property_url": "",
+  	"galaxy_cls_property_branch": "",
+	"nexus_repo_cls_url": "",
+	"cashless_bitbucket_repo_name": "",
+	"cashless_bitbucket_branch_type": "",
+	"cashless_bitbucket_branch_name": "",
+	"galaxy_java_home": "/app/software/jdk1.8.0_151",
+	"galaxy_cls_jboss_home_path": "",
+	"email": "release_team@starhealth.in,bcc:build.alert@starhealth.in"
+    }
+}

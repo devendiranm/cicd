@@ -1,0 +1,6 @@
+TARGET_DB_DEPLOYMENT_FILE_PATH: /u01/Deployment
+ORACLE_HOME: /u01/app/oracle/product/12.1.0.2/dbhome_1
+ORACLE_SID: glxysit
+PDB_NAME: GLXYSIT_PDB1
+NEXUS_REPO_PASS: "{{ vault_nexus_repo_pass }}"
+
