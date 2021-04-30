@@ -15,8 +15,8 @@
         version: "{{ VERSION }}"
         password: "{{ NEXUS_REPO_PASS }}"
         dest: "/tmp/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ EXTENSION }}"
-		
-	- maven_artifact:
+    
+    - maven_artifact:
         group_id: "{{ GROUP_ID }}"
         artifact_id: "{{ ARTIFACT_ID }}"
         repository_url: "{{ NEXUS_REPO_URL }}"
@@ -29,7 +29,7 @@
     - name: Undeploy the ims.war file Jboss application
       jboss:
         deploy_path: "{{ JBOSS_HOME_PATH }}/standalone/deployments"
-        deployment: "{{ ARTIFACT_ID }}.{{ EXTENSION }}"
+        deployment: cashless.war
         state: absent
     
     - pause:
@@ -51,8 +51,8 @@
     - name: Copy Templates file and Past it in Target Server
       shell: |
         JBOSS_HOME="{{ JBOSS_HOME_PATH }}"
-		cd $JBOSS_HOME/standalone/data/templates
-		jar -xvf "/tmp/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ TEMPLATES_EXTENSION }}"
+        cd $JBOSS_HOME/standalone/data/templates
+        jar -xvf "/tmp/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ TEMPLATES_EXTENSION }}"
 		
     - pause:
         seconds: 5
@@ -84,7 +84,7 @@
       jboss:
         src: "/tmp/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ EXTENSION }}"
         deploy_path: "{{ JBOSS_HOME_PATH }}/standalone/deployments"
-        deployment: "{{ ARTIFACT_ID }}.{{ EXTENSION }}"
+        deployment: cashless.war
         state: present
        
     - name: Clearing War file from tmp
