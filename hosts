@@ -1,0 +1,11 @@
+[SIT_App_Deployment]
+10.24.14.8
+
+[SIT_DB_Deployment]
+10.24.13.3
+
+[UAT_App_Deployment]
+10.24.10.8
+
+[UAT_DB_Deployment]
+10.24.9.3
