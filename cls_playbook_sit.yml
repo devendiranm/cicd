@@ -53,7 +53,7 @@
         JBOSS_HOME="{{ JBOSS_HOME_PATH }}"
         cd $JBOSS_HOME/standalone/data/templates
         jar -xvf "/tmp/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ TEMPLATES_EXTENSION }}"
-		
+
     - pause:
         seconds: 5
               
