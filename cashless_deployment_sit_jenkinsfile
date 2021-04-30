@@ -52,7 +52,7 @@
 			{
 				dir('config')
 				{
-					git branch:'master', credentialsId: "0fdb2372-9ce1-416c-ab11-5c859b484e73", url: 'https://bitbucket.starhealth.in/scm/ims/dev-ops-ci-cd.git'
+					git branch:'master', credentialsId: "0fdb2372-9ce1-416c-ab11-5c859b484e73", url: 'https://bitbucket.starhealth.in/scm/cicd/galaxy.git'
 					echo 'checkout completed'                
 					script
 					{  
@@ -96,7 +96,7 @@
             {
             	dir('config')
    				{
-       				git branch:'master', credentialsId: '0fdb2372-9ce1-416c-ab11-5c859b484e73', url: 'https://bitbucket.starhealth.in/scm/ims/dev-ops-ci-cd.git'
+       				git branch:'master', credentialsId: '0fdb2372-9ce1-416c-ab11-5c859b484e73', url: 'https://bitbucket.starhealth.in/scm/cicd/galaxy.git'
        				echo 'checkout completed'
             		echo 'Start deployment'
 						ansiblePlaybook( 
@@ -106,7 +106,7 @@
 							disableHostKeyChecking: true,
 							installation: 'ansible 2.9.12',
 							inventory: 'hosts',
-							playbook: 'galaxy_cls_playbook.yml',
+							playbook: 'cls_playbook_sit.yml',
 							sudoUser: null,
 							extraVars: [Env:"${params.Environment}",GROUP_ID:"${bitbucket_repo_name}",ARTIFACT_ID:"${bitbucket_branch_type}",EXTENSION:"${extension_war}",VERSION:"${bitbucket_branch_name}",PROPERTIES:"${env.WORKSPACE}/Files/PropertiesFile/",TEMPLATES_EXTENSION:"${extension_jar}",NEXUS_REPO_URL:"${nexus_repo_url}",JAVA_HOME:"${java_home}",JBOSS_HOME_PATH:"${jboss_home_path}"]       
 						)
@@ -126,7 +126,7 @@
             {
             	dir('config')
    				{
-       				git branch:'master', credentialsId: '0fdb2372-9ce1-416c-ab11-5c859b484e73', url: 'https://bitbucket.starhealth.in/scm/ims/dev-ops-ci-cd.git'
+       				git branch:'master', credentialsId: '0fdb2372-9ce1-416c-ab11-5c859b484e73', url: 'https://bitbucket.starhealth.in/scm/cicd/galaxy.git'
        				echo 'checkout completed'
             		echo 'Start deployment'
 						ansiblePlaybook( 
@@ -136,7 +136,7 @@
 							disableHostKeyChecking: true,
 							installation: 'ansible 2.9.12',
 							inventory: 'hosts',
-							playbook: 'galaxy_cls_template_playbook.yml',
+							playbook: 'cls_templates_playbook_sit.yml',
 							sudoUser: null,
 							extraVars: [Env:"${params.Environment}",PROPERTIES:"${env.WORKSPACE}/Files/PropertiesFile/",TEMPLATES_EXTENSION:"${extension_jar}",JBOSS_HOME_PATH:"${jboss_home_path}"]       
 						)
