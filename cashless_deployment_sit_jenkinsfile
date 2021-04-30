@@ -120,7 +120,7 @@ pipeline
 			{
 				expression
 				{
-					return params.From_template == 'true';
+					return params.TEMPLATE == 'true';
 				}
 			}
 			steps
