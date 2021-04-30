@@ -90,7 +90,7 @@ pipeline
 			{
 				expression
 				{
-					return params.From_template == 'false';
+					return params.TEMPLATE == 'false';
 				}
 			}
 			steps
