@@ -115,7 +115,7 @@ def call(Map pipelineParams)
 			{
             	when
               	{
-                	branch 'development'
+                	branch 'develop'
                 }
 				environment
      			{
@@ -201,7 +201,7 @@ def call(Map pipelineParams)
 			{
             	when
 				{
-                	branch 'development'
+                	branch 'develop'
             	}
         		steps
 				{
