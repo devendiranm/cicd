@@ -15,6 +15,7 @@
         version: "{{ VERSION }}"
         password: "{{ NEXUS_REPO_PASS }}"
         dest: "/tmp/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ TEMPLATES_EXTENSION }}"
+
     - name: Copy Templates file and Past it in Target Server
       shell: |
         export JAVA_HOME="{{ JAVA_HOME }}"
