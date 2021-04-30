@@ -26,11 +26,7 @@ pipeline
 			name: 'TEMPLATE', 
 			defaultValue: false, 
 			description: 'DEPLOYMENT for template file alone')
-		booleanParam(
-			name: 'TOGGLE', 
-			defaultValue: false, 
-			description: 'Toggle this value')
-    }
+	}
 	environment 
 	{ 
            app_property_url = 'galaxy_cls_property_url'
