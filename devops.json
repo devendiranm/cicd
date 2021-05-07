@@ -9,7 +9,7 @@
 	"cashless_extension": "war",
 	"templates_extension": "jar",
 	"galaxy_java_home": "/app/software/jdk1.8.0_151",
-	"galaxy_cls_jboss_home_path": "/app/jboss03_EAP_7/jboss-eap-7.0",
+	"galaxy_cls_jboss_home_path_01": "/app/jboss03_EAP_7/jboss-eap-7.0",
 	"email": "release_team@starhealth.in,bcc:build.alert@starhealth.in"
 		},
 "UAT": {

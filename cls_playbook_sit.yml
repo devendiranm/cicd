@@ -28,7 +28,7 @@
         
     - name: Undeploy the ims.war file Jboss application
       jboss:
-        deploy_path: "{{ JBOSS_HOME_PATH }}/standalone/deployments"
+        deploy_path: "{{ JBOSS_HOME_PATH_01 }}/standalone/deployments"
         deployment: cashless.war
         state: absent
     
@@ -37,7 +37,7 @@
         
     - name: To down the Jboss application
       shell: |
-        JBOSS_HOME="{{ JBOSS_HOME_PATH }}"
+        JBOSS_HOME="{{ JBOSS_HOME_PATH_01 }}"
         a=`echo $(pwdx $(ps -ef | grep java | grep -v grep | awk '{ print $2 }') | grep $JBOSS_HOME/bin | tr -s ' ' | cut -d ':' -f1)`
         # Killing the exact PID
         kill -9 $a
@@ -46,13 +46,13 @@
     - name: Copy Property file and Past it in Target Server
       copy:
         src: "{{ PROPERTIES }}"
-        dest: "{{ JBOSS_HOME_PATH }}/standalone/data"   
+        dest: "{{ JBOSS_HOME_PATH_01 }}/standalone/data"   
     
     - name: Copy Templates file and Past it in Target Server
       shell: |
         export JAVA_HOME="{{ JAVA_HOME }}"
         export PATH=$PATH:$JAVA_HOME/bin
-        JBOSS_HOME="{{ JBOSS_HOME_PATH }}"
+        JBOSS_HOME="{{ JBOSS_HOME_PATH_01 }}"
         cd $JBOSS_HOME/standalone/data/templates
         jar -xvf "/tmp/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ TEMPLATES_EXTENSION }}"
 
@@ -63,7 +63,7 @@
       shell: |
         export JAVA_HOME="{{ JAVA_HOME }}"
         export PATH=$PATH:$JAVA_HOME/bin
-        JBOSS_HOME="{{ JBOSS_HOME_PATH }}"
+        JBOSS_HOME="{{ JBOSS_HOME_PATH_01 }}"
         # Clearing the temps files
         cd $JBOSS_HOME/standalone/tmp
         rm -r *
@@ -85,7 +85,7 @@
     - name: Deploy the ims.war file in Jboss application
       jboss:
         src: "/tmp/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ EXTENSION }}"
-        deploy_path: "{{ JBOSS_HOME_PATH }}/standalone/deployments"
+        deploy_path: "{{ JBOSS_HOME_PATH_01 }}/standalone/deployments"
         deployment: cashless.war
         state: present
        
