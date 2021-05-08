@@ -44,7 +44,6 @@ def call(Map pipelineParams)
                       	def branch = readFile 'branch.txt'
                       	echo "Branch name is ${branch}"
                 	}
-                  	echo "Branch name is ${branch}"
             	}
        		}
     		stage("Build and Package")
