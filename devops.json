@@ -13,12 +13,12 @@
 	"email": "release_team@starhealth.in,bcc:build.alert@starhealth.in"
 		},
 "UAT": {
-    "galaxy_cls_property_url": "",
-  	"galaxy_cls_property_branch": "",
-	"nexus_repo_cls_url": "",
-	"cashless_bitbucket_repo_name": "",
-	"cashless_bitbucket_branch_type": "",
-	"cashless_bitbucket_branch_name": "",
+    "galaxy_cls_property_url": "https://bitbucket.starhealth.in/scm/ser/gal-properties.git",
+  	"galaxy_cls_property_branch": "master",
+	"nexus_repo_cls_url": "http://10.24.0.67:9010/repository/maven-releases-galaxy/",
+	"cashless_bitbucket_repo_name": "gal_cashless",
+	"cashless_bitbucket_branch_type": "release",
+	"cashless_bitbucket_branch_name": "release1",
 	"galaxy_java_home": "/app/software/jdk1.8.0_151",
 	"galaxy_cls_jboss_home_path": "",
 	"email": "release_team@starhealth.in,bcc:build.alert@starhealth.in"
