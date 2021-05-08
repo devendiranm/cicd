@@ -25,8 +25,8 @@ def call(Map pipelineParams)
     		projectVersion = 'Version'
      		artifactType = 'Packaging'
           	bitbucket_repo = "gal_cashless"
-          	branch_type = "release1"
-          	branch = "release"
+          	branch_type = "release"
+          	branch = "release1"
       	}
 		stages
   		{
@@ -40,9 +40,9 @@ def call(Map pipelineParams)
               		script
               		{
               			branch_type = readFile 'branch_type.txt'
-                  		echo "Branch Type is ${env.branch_type}"
+                  		echo "Branch Type is ${branch_type}"
                       	branch = readFile 'branch.txt'
-                      	echo "Branch Type is ${env.branch}"
+                      	echo "Branch Type is ${branch}"
                 	}
             	}
        		}
