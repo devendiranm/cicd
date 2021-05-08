@@ -51,8 +51,8 @@ def call(Map pipelineParams)
         		steps
           		{
               		echo "Branch Name is : ${env.BRANCH_NAME}"
-                  	echo "Branch Type is : ${branch_type}"
-                  	echo "Branch Type is : ${branch}"
+                  	echo "Branch Type is : ${env.branch_type}"
+                  	echo "Branch Type is : ${env.branch}"
                   	echo (pipelineParams.nexus_url)
                  	script
 					{
@@ -100,16 +100,16 @@ def call(Map pipelineParams)
      			{
 					SCANNER_HOME = tool 'SonarqubeScanner'
 				}
-				steps
-     			{
-                	withSonarQubeEnv('SonarQube')
-         			{
-						sh '''$SCANNER_HOME/bin/sonar-scanner \
-						-Dsonar.projectKey=CASHLESS_RELEASE \
-						-Dsonar.java.binaries=target/classes/ \
-             			-Dsonar.sources=src/main/java/'''
-					}
-                }
+//				steps
+//     			{
+//                	withSonarQubeEnv('SonarQube')
+//         			{
+//						sh '''$SCANNER_HOME/bin/sonar-scanner \
+//						-Dsonar.projectKey=CASHLESS_RELEASE \
+//						-Dsonar.java.binaries=target/classes/ \
+//             			-Dsonar.sources=src/main/java/'''
+//					}
+//                }
             }
           	stage('Sonarqube development')
 			{
@@ -184,7 +184,7 @@ def call(Map pipelineParams)
         		steps
 				{
 					nexusArtifactUploader(
-						artifacts: [[artifactId: "${branch}", classifier: '', file: "target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
+						artifacts: [[artifactId: "${env.branch}", classifier: '', file: "target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
 							[artifactId: "${branch}",classifier: '', file: "pom.xml", type: "pom" ],
                       		[artifactId: "${branch}",classifier: '', file: "templates/templates.jar", type: "jar" ]],
                 		credentialsId: 'd9f3ff8c-9dd2-4233-856f-db2921861c1a',
@@ -193,7 +193,7 @@ def call(Map pipelineParams)
                 		nexusVersion: 'nexus3',
                 		protocol: 'http',
                 		repository: (pipelineParams.nexus_prod_repo),
-                      	version: "${branch}"
+                      	version: "${env.branch}"
 					)
            		}
             }
