@@ -77,6 +77,7 @@ pipeline
                 {
             		git branch: app_property_branch, credentialsId: '0fdb2372-9ce1-416c-ab11-5c859b484e73', url: app_property_url
     				echo 'checkout completed'
+                    echo '${params.Environment}'
             	}
             }
         }
@@ -86,7 +87,7 @@ pipeline
 			{
 				expression
 				{
-					return params.Environment == UAT;
+					params.Environment == UAT;
 				}
 			}
 			steps
