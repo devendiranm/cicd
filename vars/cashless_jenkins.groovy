@@ -183,6 +183,16 @@ def call(Map pipelineParams)
 	           	}
         		steps
 				{
+                	sh 'git branch -r >branch1.txt'
+              		sh 'cat branch1.txt | awk -F\'/\' \'{print $2}\' >branch_type.txt'
+                  	sh 'cat branch1.txt | awk -F\'/\' \'{print $3}\' >branch.txt'
+              		script
+              		{
+              			//branch_type = readFile 'branch_type.txt'
+                  		echo "Branch Type is ${branch_type}"
+                      	def branch = readFile 'branch.txt'
+                      	echo "Branch Type is ${branch}"
+                	}
 					nexusArtifactUploader(
 						artifacts: [[artifactId: "${env.BRANCH_TYPE}", classifier: '', file: "target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
 							[artifactId: "${env.BRANCH_TYPE}",classifier: '', file: "pom.xml", type: "pom" ],
@@ -193,7 +203,7 @@ def call(Map pipelineParams)
                 		nexusVersion: 'nexus3',
                 		protocol: 'http',
                 		repository: (pipelineParams.nexus_prod_repo),
-                      	version: "${env.BRANCH}"
+                      	version: "${branch}"
 					)
            		}
             }
