@@ -190,7 +190,7 @@ def call(Map pipelineParams)
               		{
               			//branch_type = readFile 'branch_type.txt'
                   		echo "Branch Type is ${branch_type}"
-                      	def branch = readFile 'branch.txt'
+                      	env.branch = readFile 'branch.txt'
                       	echo "Branch Type is ${branch}"
                 	}
 					nexusArtifactUploader(
