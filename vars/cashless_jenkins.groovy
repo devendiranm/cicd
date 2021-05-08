@@ -90,16 +90,16 @@ def call(Map pipelineParams)
 					}
                 }
             }
-          	stage('Sonarqube release')
-			{
-            	when
-              	{
-                	branch 'release/*'
-                }
-				environment
-     			{
-					SCANNER_HOME = tool 'SonarqubeScanner'
-				}
+//          	stage('Sonarqube release')
+//			{
+//            	when
+//              	{
+//                	branch 'release/*'
+//                }
+//				environment
+//     			{
+//					SCANNER_HOME = tool 'SonarqubeScanner'
+//				}
 //				steps
 //     			{
 //                	withSonarQubeEnv('SonarQube')
@@ -110,7 +110,7 @@ def call(Map pipelineParams)
 //             			-Dsonar.sources=src/main/java/'''
 //					}
 //                }
-            }
+//            }
           	stage('Sonarqube development')
 			{
             	when
