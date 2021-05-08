@@ -105,7 +105,7 @@ pipeline
 							inventory: 'hosts',
 							playbook: 'cls_playbook_sit.yml',
 							sudoUser: null,
-							extraVars: [Env:"${params.Environment}",GROUP_ID:"${bitbucket_repo_name}",ARTIFACT_ID:"${bitbucket_branch_type}",EXTENSION:"${extension_war}",VERSION:"${bitbucket_branch_name}",PROPERTIES:"${env.WORKSPACE}/Files/PropertiesFile/",TEMPLATES_EXTENSION:"${extension_jar}",NEXUS_REPO_URL:"${nexus_repo_url}",JAVA_HOME:"${java_home}",JBOSS_HOME_PATH_01:"${jboss_home_path_01}"]       
+							extraVars: [Env:"${params.Environment}",GROUP_ID:"${bitbucket_repo_name}",ARTIFACT_ID:"${bitbucket_branch_type}",EXTENSION:"${extension_war}",VERSION:"${bitbucket_branch_name}",PROPERTIES:"${env.WORKSPACE}/Files/SIT/cashless/",TEMPLATES_EXTENSION:"${extension_jar}",NEXUS_REPO_URL:"${nexus_repo_url}",JAVA_HOME:"${java_home}",JBOSS_HOME_PATH_01:"${jboss_home_path_01}"]       
 						)
             	}
             }
@@ -135,7 +135,7 @@ pipeline
 							inventory: 'hosts',
 							playbook: 'cls_templates_playbook_sit.yml',
 							sudoUser: null,
-							extraVars: [Env:"${params.Environment}",GROUP_ID:"${bitbucket_repo_name}",ARTIFACT_ID:"${bitbucket_branch_type}",VERSION:"${bitbucket_branch_name}",NEXUS_REPO_URL:"${nexus_repo_url}",JAVA_HOME:"${java_home}",PROPERTIES:"${env.WORKSPACE}/Files/PropertiesFile/",TEMPLATES_EXTENSION:"${extension_jar}",JBOSS_HOME_PATH_01:"${jboss_home_path_01}"]       
+							extraVars: [Env:"${params.Environment}",GROUP_ID:"${bitbucket_repo_name}",ARTIFACT_ID:"${bitbucket_branch_type}",VERSION:"${bitbucket_branch_name}",NEXUS_REPO_URL:"${nexus_repo_url}",JAVA_HOME:"${java_home}",PROPERTIES:"${env.WORKSPACE}/Files/SIT/cashless/",TEMPLATES_EXTENSION:"${extension_jar}",JBOSS_HOME_PATH_01:"${jboss_home_path_01}"]       
 						)
             	}
             }
