@@ -42,8 +42,9 @@ def call(Map pipelineParams)
               			branch_type = readFile 'branch_type.txt'
                   		echo "Branch Type is ${branch_type}"
                       	def branch = readFile 'branch.txt'
-                      	echo "Branch Type is ${branch}"
+                      	echo "Branch name is ${branch}"
                 	}
+                  	echo "Branch name is ${branch}"
             	}
        		}
     		stage("Build and Package")
@@ -203,7 +204,7 @@ def call(Map pipelineParams)
                 		nexusVersion: 'nexus3',
                 		protocol: 'http',
                 		repository: (pipelineParams.nexus_prod_repo),
-                      	version: "${branch}"
+                      	version: "${env.branch}"
 					)
            		}
             }
