@@ -193,7 +193,7 @@ def call(Map pipelineParams)
                 		nexusVersion: 'nexus3',
                 		protocol: 'http',
                 		repository: (pipelineParams.nexus_prod_repo),
-                      	version: "${branch}"
+                      	version: "${env.branch}"
 					)
            		}
             }
