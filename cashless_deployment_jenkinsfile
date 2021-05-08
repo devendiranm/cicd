@@ -85,10 +85,10 @@ pipeline
 		{
         	when
 			{
-				expression
-				{
+//				expression
+//				{
 					return params.Environment == UAT;
-				}
+//				}
 			}
 			steps
             {
