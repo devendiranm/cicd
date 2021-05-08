@@ -86,7 +86,7 @@ pipeline
 			{
 				expression
 				{
-					return params.TEMPLATE == false;
+					return params.Environment == UAT;
 				}
 			}
 			steps
@@ -116,7 +116,7 @@ pipeline
 			{
 				expression
 				{
-					return params.TEMPLATE == true;
+					params.Environment == UAT && params.TEMPLATE == true;
 				}
 			}
 			steps
