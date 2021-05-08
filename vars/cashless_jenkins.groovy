@@ -41,7 +41,7 @@ def call(Map pipelineParams)
               		{
               			branch_type = readFile 'branch_type.txt'
                   		echo "Branch Type is ${branch_type}"
-                      	env.branch = readFile 'branch.txt'
+                      	def branch = readFile 'branch.txt'
                       	echo "Branch Type is ${branch}"
                 	}
             	}
