@@ -25,8 +25,8 @@ def call(Map pipelineParams)
     		projectVersion = 'Version'
      		artifactType = 'Packaging'
           	bitbucket_repo = "gal_cashless"
-//          	branch_type = "branch_type"
-//          	branch = 'release'
+          	branch_type = "release1"
+          	branch = "release"
       	}
 		stages
   		{
@@ -39,9 +39,9 @@ def call(Map pipelineParams)
                   	sh 'cat branch1.txt | awk -F\'/\' \'{print $3}\' >branch.txt'
               		script
               		{
-              			env.branch_type = readFile 'branch_type.txt'
+              			branch_type = readFile 'branch_type.txt'
                   		echo "Branch Type is ${env.branch_type}"
-                      	env.branch = readFile 'branch.txt'
+                      	branch = readFile 'branch.txt'
                       	echo "Branch Type is ${env.branch}"
                 	}
             	}
@@ -184,9 +184,9 @@ def call(Map pipelineParams)
         		steps
 				{
 					nexusArtifactUploader(
-						artifacts: [[artifactId: "${env.BRANCH}", classifier: '', file: "target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
-							[artifactId: "${env.BRANCH}",classifier: '', file: "pom.xml", type: "pom" ],
-                      		[artifactId: "${env.BRANCH}",classifier: '', file: "templates/templates.jar", type: "jar" ]],
+						artifacts: [[artifactId: "${env.BRANCH_TYPE}", classifier: '', file: "target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
+							[artifactId: "${env.BRANCH_TYPE}",classifier: '', file: "pom.xml", type: "pom" ],
+                      		[artifactId: "${env.BRANCH_TYPE}",classifier: '', file: "templates/templates.jar", type: "jar" ]],
                 		credentialsId: 'd9f3ff8c-9dd2-4233-856f-db2921861c1a',
                 		groupId: "${bitbucket_repo}",
                 		nexusUrl: (pipelineParams.nexus_url),
