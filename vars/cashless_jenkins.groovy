@@ -26,7 +26,7 @@ def call(Map pipelineParams)
      		artifactType = 'Packaging'
           	bitbucket_repo = "gal_cashless"
           	branch_type = 'branch_type'
-          	branch = 'branch'
+          	branch = 'release'
       	}
 		stages
   		{
@@ -185,15 +185,15 @@ def call(Map pipelineParams)
 				{
 					nexusArtifactUploader(
 						artifacts: [[artifactId: "${env.branch}", classifier: '', file: "target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
-							[artifactId: "${branch}",classifier: '', file: "pom.xml", type: "pom" ],
-                      		[artifactId: "${branch}",classifier: '', file: "templates/templates.jar", type: "jar" ]],
+							[artifactId: "${env.branch}",classifier: '', file: "pom.xml", type: "pom" ],
+                      		[artifactId: "${env.branch}",classifier: '', file: "templates/templates.jar", type: "jar" ]],
                 		credentialsId: 'd9f3ff8c-9dd2-4233-856f-db2921861c1a',
                 		groupId: "${bitbucket_repo}",
                 		nexusUrl: (pipelineParams.nexus_url),
                 		nexusVersion: 'nexus3',
                 		protocol: 'http',
                 		repository: (pipelineParams.nexus_prod_repo),
-                      	version: "${env.branch}"
+                      	version: "${branch_type}"
 					)
            		}
             }
