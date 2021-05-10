@@ -40,9 +40,9 @@ def call(Map pipelineParams)
               		script
               		{
               			branch_type = readFile 'branch_type.txt'
-                  		echo "Branch Type is ${branch_type}"
+                  		echo "Branch Type is #${branch_type}#"
                       	branch = readFile 'branch.txt'
-                      	echo "Branch name is ${branch}"
+                      	echo "Branch name is #${branch}#"
                 	}
             	}
        		}
