@@ -38,8 +38,8 @@ def call(Map pipelineParams)
                   	sh 'cat branch1.txt'
 //              		sh 'cat branch1.txt | awk -F\'/\' \'{print $2}\' >branch_type.txt'
 //                  	sh 'cat branch1.txt | awk -F\'/\' \'{print $3}\' >branch.txt'
-                  	branch_type = sh 'cat branch1.txt | cut -d/ -f 2'
-                  	branch = sh 'cat branch1.txt | cut -d/ -f 3'
+                  	branch_type = sh('cat branch1.txt | cut -d/ -f 2')
+                  	branch = sh ('cat branch1.txt | cut -d/ -f 3')
               		script
               		{
 //              			branch_type = readFile 'branch_type.txt'
