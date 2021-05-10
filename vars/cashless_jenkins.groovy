@@ -193,7 +193,6 @@ def call(Map pipelineParams)
                 		repository: (pipelineParams.nexus_prod_repo),
                       	version: "${branch}"
 					)
-           		}
             }
           	stage("Uploading development WAR file to Nexus")
 			{
