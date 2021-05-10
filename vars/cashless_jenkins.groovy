@@ -25,8 +25,8 @@ def call(Map pipelineParams)
     		projectVersion = 'Version'
      		artifactType = 'Packaging'
           	bitbucket_repo = "gal_cashless"
-          	branch_type = "release"
-//          	branch = "release1"
+          	branch_type = 'branch_type'
+          	branch = 'branch'
       	}
 		stages
   		{
@@ -41,7 +41,7 @@ def call(Map pipelineParams)
               		{
               			branch_type = readFile 'branch_type.txt'
                   		echo "Branch Type is ${branch_type}"
-                      	def branch = readFile 'branch.txt'
+                      	branch = readFile 'branch.txt'
                       	echo "Branch name is ${branch}"
                 	}
             	}
@@ -51,8 +51,8 @@ def call(Map pipelineParams)
         		steps
           		{
               		echo "Branch Name is : ${env.BRANCH_NAME}"
-                  	echo "Branch Type is : ${env.branch_type}"
-                  	echo "Branch Type is : ${env.branch}"
+                  	echo "Branch Type is : ${branch_type}"
+                  	echo "Branch Type is : ${branch}"
                   	echo (pipelineParams.nexus_url)
                  	script
 					{
@@ -181,29 +181,17 @@ def call(Map pipelineParams)
 				{
                 	branch 'release/*'
 	           	}
-        		steps
-				{
-                	sh 'git branch -r >branch1.txt'
-              		sh 'cat branch1.txt | awk -F\'/\' \'{print $2}\' >branch_type.txt'
-                  	sh 'cat branch1.txt | awk -F\'/\' \'{print $3}\' >branch.txt'
-              		script
-              		{
-              			//branch_type = readFile 'branch_type.txt'
-                  		echo "Branch Type is ${branch_type}"
-                      	env.branch = readFile 'branch.txt'
-                      	echo "Branch Type is ${branch}"
-                	}
-					nexusArtifactUploader(
-						artifacts: [[artifactId: "${env.BRANCH_TYPE}", classifier: '', file: "target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
-							[artifactId: "${env.BRANCH_TYPE}",classifier: '', file: "pom.xml", type: "pom" ],
-                      		[artifactId: "${env.BRANCH_TYPE}",classifier: '', file: "templates/templates.jar", type: "jar" ]],
+        		nexusArtifactUploader(
+						artifacts: [[artifactId: "${branch_type}", classifier: '', file: "target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
+							[artifactId: "${branch_type}",classifier: '', file: "pom.xml", type: "pom" ],
+                      		[artifactId: "${branch_type}",classifier: '', file: "templates/templates.jar", type: "jar" ]],
                 		credentialsId: 'd9f3ff8c-9dd2-4233-856f-db2921861c1a',
                 		groupId: "${bitbucket_repo}",
                 		nexusUrl: (pipelineParams.nexus_url),
                 		nexusVersion: 'nexus3',
                 		protocol: 'http',
                 		repository: (pipelineParams.nexus_prod_repo),
-                      	version: "${env.branch}"
+                      	version: "${branch}"
 					)
            		}
             }
