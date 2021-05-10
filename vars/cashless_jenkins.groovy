@@ -36,16 +36,16 @@ def call(Map pipelineParams)
           		{
         			sh 'git branch -r >branch1.txt'
                   	sh 'cat branch1.txt'
-//              		sh 'cat branch1.txt | awk -F\'/\' \'{print $2}\' >branch_type.txt'
-//                  	sh 'cat branch1.txt | awk -F\'/\' \'{print $3}\' >branch.txt'
+              		sh 'cat branch1.txt | awk -F\'/\' \'{print $2}\' >branch_type.txt'
+                  	sh 'cat branch1.txt | awk -F\'/\' \'{print $3}\' >branch.txt'
                   	
               		script
               		{
-                    	branch_type = sh(script: "cat branch1.txt | cut -d/ -f 2")
-                  		branch = sh (script: "cat branch1.txt | cut -d/ -f 3")
-//              			branch_type = readFile 'branch_type.txt'
+//                    	branch_type = sh(script: "cat branch1.txt | cut -d/ -f 2")
+//                  		branch = sh (script: "cat branch1.txt | cut -d/ -f 3")
+              			branch_type = readFile('branch_type.txt').trim()
                   		echo "Branch Type is #${branch_type}#"
-//                      	branch = readFile 'branch.txt'
+                      	branch = readFile('branch.txt').trim()
                       	echo "Branch name is #${branch}#"
                 	}
             	}
