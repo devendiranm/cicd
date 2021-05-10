@@ -41,8 +41,6 @@ def call(Map pipelineParams)
                   	
               		script
               		{
-//                    	branch_type = sh(script: "cat branch1.txt | cut -d/ -f 2")
-//                  		branch = sh (script: "cat branch1.txt | cut -d/ -f 3")
               			branch_type = readFile('branch_type.txt').trim()
                   		echo "Branch Type is #${branch_type}#"
                       	branch = readFile('branch.txt').trim()
@@ -94,27 +92,27 @@ def call(Map pipelineParams)
 					}
                 }
             }
-//          	stage('Sonarqube release')
-//			{
-//            	when
-//              	{
-//                	branch 'release/*'
-//                }
-//				environment
-//     			{
-//					SCANNER_HOME = tool 'SonarqubeScanner'
-//				}
-//				steps
-//     			{
-//                	withSonarQubeEnv('SonarQube')
-//         			{
-//						sh '''$SCANNER_HOME/bin/sonar-scanner \
-//						-Dsonar.projectKey=CASHLESS_RELEASE \
-//						-Dsonar.java.binaries=target/classes/ \
-//             			-Dsonar.sources=src/main/java/'''
-//					}
-//                }
-//            }
+          	stage('Sonarqube release')
+			{
+            	when
+              	{
+                	branch 'release/*'
+                }
+				environment
+     			{
+					SCANNER_HOME = tool 'SonarqubeScanner'
+				}
+				steps
+     			{
+                	withSonarQubeEnv('SonarQube')
+         			{
+						sh '''$SCANNER_HOME/bin/sonar-scanner \
+						-Dsonar.projectKey=CASHLESS_RELEASE \
+						-Dsonar.java.binaries=target/classes/ \
+             			-Dsonar.sources=src/main/java/'''
+					}
+                }
+            }
           	stage('Sonarqube development')
 			{
             	when
@@ -227,7 +225,7 @@ def call(Map pipelineParams)
     		{
             	steps
               	{
-//        			cleanWs()
+        			cleanWs()
         			echo 'Cleaned workspace'
                 }
             }
