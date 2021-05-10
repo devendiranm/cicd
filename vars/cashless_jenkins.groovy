@@ -181,7 +181,9 @@ def call(Map pipelineParams)
 				{
                 	branch 'release/*'
 	           	}
-        		nexusArtifactUploader(
+              	steps
+              	{
+        			nexusArtifactUploader(
 						artifacts: [[artifactId: "${branch_type}", classifier: '', file: "target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
 							[artifactId: "${branch_type}",classifier: '', file: "pom.xml", type: "pom" ],
                       		[artifactId: "${branch_type}",classifier: '', file: "templates/templates.jar", type: "jar" ]],
@@ -193,6 +195,7 @@ def call(Map pipelineParams)
                 		repository: (pipelineParams.nexus_prod_repo),
                       	version: "${branch}"
 					)
+                }
             }
           	stage("Uploading development WAR file to Nexus")
 			{
