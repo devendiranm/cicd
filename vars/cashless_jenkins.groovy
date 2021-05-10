@@ -35,6 +35,7 @@ def call(Map pipelineParams)
         		steps
           		{
         			sh 'git branch -r >branch1.txt'
+                  	sh 'cat branch1.txt'
               		sh 'cat branch1.txt | awk -F\'/\' \'{print $2}\' >branch_type.txt'
                   	sh 'cat branch1.txt | awk -F\'/\' \'{print $3}\' >branch.txt'
               		script
