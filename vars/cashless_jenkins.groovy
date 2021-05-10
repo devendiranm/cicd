@@ -41,8 +41,8 @@ def call(Map pipelineParams)
                   	
               		script
               		{
-                    	branch_type = sh(script: "cat branch1.txt | cut -d/ -f 2",returnStdout: true)
-                  		branch = sh (script: "cat branch1.txt | cut -d/ -f 3",returnStdout: true)
+                    	branch_type = sh(script: "cat branch1.txt | cut -d/ -f 2")
+                  		branch = sh (script: "cat branch1.txt | cut -d/ -f 3")
 //              			branch_type = readFile 'branch_type.txt'
                   		echo "Branch Type is #${branch_type}#"
 //                      	branch = readFile 'branch.txt'
@@ -56,7 +56,7 @@ def call(Map pipelineParams)
           		{
               		echo "Branch Name is : ${env.BRANCH_NAME}"
                   	echo "Branch Type is : ${branch_type}"
-                  	echo "Branch Type is : ${branch}"
+                  	echo "Branch name is : ${branch}"
                   	echo (pipelineParams.nexus_url)
                  	script
 					{
