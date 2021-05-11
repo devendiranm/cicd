@@ -71,90 +71,90 @@ def call(Map pipelineParams)
               		echo 'Build completed'
             	}
        		}
-     		stage('Sonarqube master')
-			{
-            	when
-              	{
-                	branch 'master'
-                }
-				environment
-     			{
-					SCANNER_HOME = tool 'SonarqubeScanner'
-				}
-				steps
-     			{
-                	withSonarQubeEnv('SonarQube')
-         			{
-						sh '''$SCANNER_HOME/bin/sonar-scanner \
-						-Dsonar.projectKey=CASHLESS_MASTER \
-						-Dsonar.java.binaries=target/classes/ \
-             			-Dsonar.sources=src/main/java/'''
-					}
-                }
-            }
-          	stage('Sonarqube release')
-			{
-            	when
-              	{
-                	branch 'release/*'
-                }
-				environment
-     			{
-					SCANNER_HOME = tool 'SonarqubeScanner'
-				}
-				steps
-     			{
-                	withSonarQubeEnv('SonarQube')
-         			{
-						sh '''$SCANNER_HOME/bin/sonar-scanner \
-						-Dsonar.projectKey=CASHLESS_RELEASE \
-						-Dsonar.java.binaries=target/classes/ \
-             			-Dsonar.sources=src/main/java/'''
-					}
-                }
-            }
-          	stage('Sonarqube development')
-			{
-            	when
-              	{
-                	branch 'develop'
-                }
-				environment
-     			{
-					SCANNER_HOME = tool 'SonarqubeScanner'
-				}
-				steps
-     			{
-                	withSonarQubeEnv('SonarQube')
-         			{
-						sh '''$SCANNER_HOME/bin/sonar-scanner \
-						-Dsonar.projectKey=CASHLESS_DEVELOPMENT \
-						-Dsonar.java.binaries=target/classes/ \
-             			-Dsonar.sources=src/main/java/'''
-					}
-                }
-            }
-          	stage('Sonarqube feature')
-			{
-            	when
-              	{
-                	branch 'feature/*'
-                }
-				environment
-     			{
-					SCANNER_HOME = tool 'SonarqubeScanner'
-				}
-				steps
-     			{
-                	withSonarQubeEnv('SonarQube')
-         			{
-						sh '''$SCANNER_HOME/bin/sonar-scanner \
-						-Dsonar.projectKey=CASHLESS_FEATURE \
-						-Dsonar.java.binaries=target/classes/ \
-             			-Dsonar.sources=src/main/java/'''
-					}
-                }
-            }
+//     		stage('Sonarqube master')
+//			{
+//            	when
+//              	{
+//                	branch 'master'
+//                }
+//				environment
+//     			{
+//					SCANNER_HOME = tool 'SonarqubeScanner'
+//				}
+//				steps
+//     			{
+//                	withSonarQubeEnv('SonarQube')
+//         			{
+//						sh '''$SCANNER_HOME/bin/sonar-scanner \
+//						-Dsonar.projectKey=CASHLESS_MASTER \
+//						-Dsonar.java.binaries=target/classes/ \
+//             			-Dsonar.sources=src/main/java/'''
+//					}
+//                }
+//            }
+//          	stage('Sonarqube release')
+//			{
+//            	when
+//              	{
+//                	branch 'release/*'
+//                }
+//				environment
+//     			{
+//					SCANNER_HOME = tool 'SonarqubeScanner'
+//				}
+//				steps
+//     			{
+//                	withSonarQubeEnv('SonarQube')
+//         			{
+//						sh '''$SCANNER_HOME/bin/sonar-scanner \
+//						-Dsonar.projectKey=CASHLESS_RELEASE \
+//						-Dsonar.java.binaries=target/classes/ \
+//             			-Dsonar.sources=src/main/java/'''
+//					}
+//                }
+//            }
+//          	stage('Sonarqube development')
+//			{
+//            	when
+//              	{
+//                	branch 'develop'
+//                }
+//				environment
+//     			{
+//					SCANNER_HOME = tool 'SonarqubeScanner'
+//				}
+//				steps
+//     			{
+//                	withSonarQubeEnv('SonarQube')
+//         			{
+//						sh '''$SCANNER_HOME/bin/sonar-scanner \
+//						-Dsonar.projectKey=CASHLESS_DEVELOPMENT \
+//						-Dsonar.java.binaries=target/classes/ \
+//             			-Dsonar.sources=src/main/java/'''
+//					}
+//                }
+//            }
+//          	stage('Sonarqube feature')
+//			{
+//            	when
+//              	{
+//                	branch 'feature/*'
+//                }
+//				environment
+//     			{
+//					SCANNER_HOME = tool 'SonarqubeScanner'
+//				}
+//				steps
+//     			{
+//                	withSonarQubeEnv('SonarQube')
+//         			{
+//						sh '''$SCANNER_HOME/bin/sonar-scanner \
+//						-Dsonar.projectKey=CASHLESS_FEATURE \
+//						-Dsonar.java.binaries=target/classes/ \
+//             			-Dsonar.sources=src/main/java/'''
+//					}
+//                }
+//            }
             stage("Uploading master WAR file to Nexus")
 			{
             	when
