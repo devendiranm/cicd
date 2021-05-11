@@ -26,7 +26,7 @@
         password: "{{ NEXUS_REPO_PASS }}"
         dest: "/tmp/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ TEMPLATES_EXTENSION }}"
         
-    - name: Undeploy the ims.war file Jboss application
+    - name: Undeploy the ims.war file Jboss01 application
       jboss:
         deploy_path: "{{ JBOSS_HOME_PATH_01 }}/standalone/deployments"
         deployment: cashless.war
@@ -35,7 +35,7 @@
     - pause:
         seconds: 10
         
-    - name: To down the Jboss application
+    - name: To down the Jboss01 application
       shell: |
         JBOSS_HOME="{{ JBOSS_HOME_PATH_01 }}"
         a=`echo $(pwdx $(ps -ef | grep java | grep -v grep | awk '{ print $2 }') | grep $JBOSS_HOME/bin | tr -s ' ' | cut -d ':' -f1)`
@@ -43,12 +43,12 @@
         kill -9 $a
         echo "Application Jboss01 down `date +%d%m20%y_%H%M%S`" >> /home/deploy/log.tx
 
-    - name: Copy Property file and Past it in Target Server
+    - name: Copy Property file and Past it in Target Jboss01 Server
       copy:
         src: "{{ PROPERTIES }}"
         dest: "{{ JBOSS_HOME_PATH_01 }}/standalone/data"   
     
-    - name: Copy Templates file and Past it in Target Server
+    - name: Copy Templates file and Past it in Target Jboss01 Server
       shell: |
         export JAVA_HOME="{{ JAVA_HOME }}"
         export PATH=$PATH:$JAVA_HOME/bin
@@ -59,7 +59,7 @@
     - pause:
         seconds: 5
               
-    - name: To Start the Jboss application
+    - name: To Start the Jboss01 application
       shell: |
         export JAVA_HOME="{{ JAVA_HOME }}"
         export PATH=$PATH:$JAVA_HOME/bin
@@ -82,7 +82,7 @@
     - pause:
         seconds: 30
       
-    - name: Deploy the ims.war file in Jboss application
+    - name: Deploy the ims.war file in Jboss01 application
       jboss:
         src: "/tmp/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ EXTENSION }}"
         deploy_path: "{{ JBOSS_HOME_PATH_01 }}/standalone/deployments"
