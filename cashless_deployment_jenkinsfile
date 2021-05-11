@@ -88,7 +88,7 @@ pipeline
 			{
 				expression
 				{
-					return params.Environment == 'UAT';
+					return params.Environment == 'UAT' && params.TEMPLATE == false;
 				}
 			}
 			steps
@@ -148,7 +148,7 @@ pipeline
 			{
 				expression
 				{
-					return params.Environment == 'PROD';
+					return params.Environment == 'PROD' && params.TEMPLATE == false;
 				}
 			}
 			steps
