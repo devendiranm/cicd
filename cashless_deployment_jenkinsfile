@@ -78,6 +78,7 @@ pipeline
             		git branch: app_property_branch, credentialsId: '0fdb2372-9ce1-416c-ab11-5c859b484e73', url: app_property_url
     				echo 'checkout completed'
                     echo "${params.Environment}"
+                    echo "${params.TEMPLATE}"
             	}
             }
         }
@@ -96,7 +97,7 @@ pipeline
    				{
        				git branch:'master', credentialsId: '0fdb2372-9ce1-416c-ab11-5c859b484e73', url: 'https://bitbucket.starhealth.in/scm/cicd/galaxy.git'
        				echo 'checkout completed'
-            		echo 'Start deployment'
+            		echo 'Start UAT deployment'
 						ansiblePlaybook( 
 							become: true,
 							becomeUser: 'deploy',
@@ -126,7 +127,7 @@ pipeline
    				{
        				git branch:'master', credentialsId: '0fdb2372-9ce1-416c-ab11-5c859b484e73', url: 'https://bitbucket.starhealth.in/scm/cicd/galaxy.git'
        				echo 'checkout completed'
-            		echo 'Start deployment'
+            		echo 'Start UAT template deployment'
 						ansiblePlaybook( 
 							become: true,
 							becomeUser: 'deploy',
@@ -156,7 +157,7 @@ pipeline
    				{
        				git branch:'master', credentialsId: '0fdb2372-9ce1-416c-ab11-5c859b484e73', url: 'https://bitbucket.starhealth.in/scm/cicd/galaxy.git'
        				echo 'checkout completed'
-            		echo 'Start deployment'
+            		echo 'Start PROD deployment'
 						ansiblePlaybook( 
 							become: true,
 							becomeUser: 'deploy',
@@ -186,7 +187,7 @@ pipeline
    				{
        				git branch:'master', credentialsId: '0fdb2372-9ce1-416c-ab11-5c859b484e73', url: 'https://bitbucket.starhealth.in/scm/cicd/galaxy.git'
        				echo 'checkout completed'
-            		echo 'Start deployment'
+            		echo 'Start PROD template deployment'
 						ansiblePlaybook( 
 							become: true,
 							becomeUser: 'deploy',
