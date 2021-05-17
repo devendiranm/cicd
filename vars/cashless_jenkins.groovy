@@ -24,7 +24,7 @@ def call(Map pipelineParams)
     		projectGroupId = 'GroupId'
     		projectVersion = 'Version'
      		artifactType = 'Packaging'
-          	bitbucket_repo = "gal_cashless"
+          	bitbucket_repo = "gal-cashless"
           	branch_type = 'branch_type'
           	branch = 'branch'
       	}
