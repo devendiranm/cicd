@@ -4,7 +4,7 @@
   	"galaxy_property_branch": "master",
 	"nexus_repo_url": "http://10.24.0.67:9010/repository/maven-nonprod-galaxy/",
 	"cashless_bitbucket_repo_name": "gal-cashless",
-  	"reimbursements_bitbucket_repo_name": "gal-cashless",
+  	"reimbursements_bitbucket_repo_name": "",
 	"bitbucket_branch_type": "develop",
 	"bitbucket_branch_name": "develop",
 	"extension": "war",
@@ -15,16 +15,18 @@
 	"email": "release_team@starhealth.in,bcc:build.alert@starhealth.in"
 		},
 "UAT": {
-    "galaxy_cls_property_url": "https://bitbucket.starhealth.in/scm/ser/gal-properties.git",
-  	"galaxy_cls_property_branch": "master",
-	"nexus_repo_cls_url": "http://10.24.0.67:9010/repository/maven-releases-galaxy/",
+    "galaxy_property_url": "https://bitbucket.starhealth.in/scm/ser/gal-properties.git",
+  	"galaxy_property_branch": "master",
+	"nexus_repo_url": "http://10.24.0.67:9010/repository/maven-releases-galaxy/",
 	"cashless_bitbucket_repo_name": "gal-cashless",
-	"cashless_bitbucket_branch_type": "release",
-	"cashless_bitbucket_branch_name": "release1.0",
-  	"cashless_extension": "war",
+  	"reimbursements_bitbucket_repo_name": "",
+	"bitbucket_branch_type": "release",
+	"bitbucket_branch_name": "release1.0",
+  	"extension": "war",
 	"templates_extension": "jar",
 	"galaxy_java_home": "/app/software/jdk1.8.0_151",
 	"galaxy_cls_jboss_home_path_01": "/app/jboss02_EAP_7/jboss-eap-7.0",
+  	"galaxy_rem_jboss_home_path_01": "/app/jboss03_EAP_7/jboss-eap-7.0",
 	"email": "release_team@starhealth.in,bcc:build.alert@starhealth.in"
     },
 	
