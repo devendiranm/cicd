@@ -29,16 +29,16 @@ pipeline
 	}
 	environment 
 	{ 
-           app_property_url = 'galaxy_cls_property_url'
-		   app_property_branch = 'galaxy_cls_property_branch'
+           app_property_url = 'galaxy_property_url'
+		   app_property_branch = 'galaxy_property_branch'
 		   bitbucket_repo_name = 'cashless_bitbucket_repo_name'
-		   bitbucket_branch_type = 'cashless_bitbucket_branch_type'
-		   bitbucket_branch_name = 'cashless_bitbucket_branch_name'
-		   extension_war = 'cashless_extension'
+		   bitbucket_branch_type = 'bitbucket_branch_type'
+		   bitbucket_branch_name = 'bitbucket_branch_name'
+		   extension_war = 'extension'
 		   extension_jar = 'templates_extension'
-           nexus_repo_url = 'nexus_repo_cls_url'
+           nexus_repo_url = 'nexus_repo_url'
            java_home = 'galaxy_java_home'
-           jboss_home_path_01 = 'galaxy_cls_jboss_home_path'
+           jboss_home_path_01 = 'galaxy_cls_jboss_home_path_01'
            EMAIL = 'email'
 	}
     stages
@@ -54,14 +54,14 @@ pipeline
 					script
 					{  
 						def props = readJSON file: "${env.WORKSPACE}/config/devops.json"
-						app_property_url = props["${params.Environment}"]['galaxy_cls_property_url']
-                        app_property_branch = props["${params.Environment}"]['galaxy_cls_property_branch']
+						app_property_url = props["${params.Environment}"]['galaxy_property_url']
+                        app_property_branch = props["${params.Environment}"]['galaxy_property_branch']
 						bitbucket_repo_name = props["${params.Environment}"]['cashless_bitbucket_repo_name']
-						bitbucket_branch_type = props["${params.Environment}"]['cashless_bitbucket_branch_type']
-						bitbucket_branch_name = props["${params.Environment}"]['cashless_bitbucket_branch_name']
-						extension_war = props["${params.Environment}"]['cashless_extension']
+						bitbucket_branch_type = props["${params.Environment}"]['bitbucket_branch_type']
+						bitbucket_branch_name = props["${params.Environment}"]['bitbucket_branch_name']
+						extension_war = props["${params.Environment}"]['extension']
 						extension_jar = props["${params.Environment}"]['templates_extension']
-                        nexus_repo_url = props["${params.Environment}"]['nexus_repo_cls_url']
+                        nexus_repo_url = props["${params.Environment}"]['nexus_repo_url']
                         java_home = props["${params.Environment}"]['galaxy_java_home']
                         jboss_home_path_01 = props["${params.Environment}"]['galaxy_cls_jboss_home_path_01']
 						EMAIL = props["${params.Environment}"]['email']
