@@ -19,7 +19,7 @@
   	"galaxy_property_branch": "master",
 	"nexus_repo_url": "http://10.24.0.67:9010/repository/maven-releases-galaxy/",
 	"cashless_bitbucket_repo_name": "gal-cashless",
-  	"reimbursements_bitbucket_repo_name": "",
+  	"reimbursements_bitbucket_repo_name": "gal_reimbursements",
 	"bitbucket_branch_type": "release",
 	"bitbucket_branch_name": "release1.0",
   	"extension": "war",
