@@ -4,7 +4,7 @@
   	"galaxy_property_branch": "master",
 	"nexus_repo_url": "http://10.24.0.67:9010/repository/maven-nonprod-galaxy/",
 	"cashless_bitbucket_repo_name": "gal-cashless",
-  	"reimbursements_bitbucket_repo_name": "",
+  	"reimbursements_bitbucket_repo_name": "gal_reimbursements",
 	"bitbucket_branch_type": "develop",
 	"bitbucket_branch_name": "develop",
 	"extension": "war",
