@@ -29,16 +29,16 @@ pipeline
 	}
 	environment 
 	{ 
-           app_property_url = 'galaxy_cls_property_url'
-		   app_property_branch = 'galaxy_cls_property_branch'
-		   bitbucket_repo_name = 'cashless_bitbucket_repo_name'
-		   bitbucket_branch_type = 'cashless_bitbucket_branch_type'
-		   bitbucket_branch_name = 'cashless_bitbucket_branch_name'
-		   extension_war = 'cashless_extension'
+           app_property_url = 'galaxy_property_url'
+		   app_property_branch = 'galaxy_property_branch'
+		   bitbucket_repo_name = 'reimbursements_bitbucket_repo_name'
+		   bitbucket_branch_type = 'bitbucket_branch_type'
+		   bitbucket_branch_name = 'bitbucket_branch_name'
+		   extension_war = 'extension'
 		   extension_jar = 'templates_extension'
-           nexus_repo_url = 'nexus_repo_cls_url'
+           nexus_repo_url = 'nexus_repo_url'
            java_home = 'galaxy_java_home'
-           jboss_home_path_01 = 'galaxy_cls_jboss_home_path'
+           jboss_home_path_01 = 'galaxy_rem_jboss_home_path_01'
            EMAIL = 'email'
 	}
     stages
@@ -54,16 +54,16 @@ pipeline
 					script
 					{  
 						def props = readJSON file: "${env.WORKSPACE}/config/devops.json"
-						app_property_url = props["${params.Environment}"]['galaxy_cls_property_url']
-                        app_property_branch = props["${params.Environment}"]['galaxy_cls_property_branch']
-						bitbucket_repo_name = props["${params.Environment}"]['cashless_bitbucket_repo_name']
-						bitbucket_branch_type = props["${params.Environment}"]['cashless_bitbucket_branch_type']
-						bitbucket_branch_name = props["${params.Environment}"]['cashless_bitbucket_branch_name']
-						extension_war = props["${params.Environment}"]['cashless_extension']
+						app_property_url = props["${params.Environment}"]['galaxy_property_url']
+                        app_property_branch = props["${params.Environment}"]['galaxy_property_branch']
+						bitbucket_repo_name = props["${params.Environment}"]['reimbursements_bitbucket_repo_name']
+						bitbucket_branch_type = props["${params.Environment}"]['bitbucket_branch_type']
+						bitbucket_branch_name = props["${params.Environment}"]['bitbucket_branch_name']
+						extension_war = props["${params.Environment}"]['extension']
 						extension_jar = props["${params.Environment}"]['templates_extension']
-                        nexus_repo_url = props["${params.Environment}"]['nexus_repo_cls_url']
+                        nexus_repo_url = props["${params.Environment}"]['nexus_repo_url']
                         java_home = props["${params.Environment}"]['galaxy_java_home']
-                        jboss_home_path_01 = props["${params.Environment}"]['galaxy_cls_jboss_home_path_01']
+                        jboss_home_path_01 = props["${params.Environment}"]['galaxy_rem_jboss_home_path_01']
 						EMAIL = props["${params.Environment}"]['email']
                     }
 				}
@@ -103,9 +103,9 @@ pipeline
 							disableHostKeyChecking: true,
 							installation: 'ansible 2.9.12',
 							inventory: 'hosts',
-							playbook: 'cls_playbook_sit.yml',
+							playbook: 'reimbursements/rem_playbook_sit.yml',
 							sudoUser: null,
-							extraVars: [Env:"${params.Environment}",GROUP_ID:"${bitbucket_repo_name}",ARTIFACT_ID:"${bitbucket_branch_type}",EXTENSION:"${extension_war}",VERSION:"${bitbucket_branch_name}",PROPERTIES:"${env.WORKSPACE}/Files/SIT/cashless/",TEMPLATES_EXTENSION:"${extension_jar}",NEXUS_REPO_URL:"${nexus_repo_url}",JAVA_HOME:"${java_home}",JBOSS_HOME_PATH_01:"${jboss_home_path_01}"]       
+							extraVars: [Env:"${params.Environment}",GROUP_ID:"${bitbucket_repo_name}",ARTIFACT_ID:"${bitbucket_branch_type}",EXTENSION:"${extension_war}",VERSION:"${bitbucket_branch_name}",PROPERTIES:"${env.WORKSPACE}/Files/SIT/reimbursements/",TEMPLATES_EXTENSION:"${extension_jar}",NEXUS_REPO_URL:"${nexus_repo_url}",JAVA_HOME:"${java_home}",JBOSS_HOME_PATH_01:"${jboss_home_path_01}"]       
 						)
             	}
             }
@@ -133,9 +133,9 @@ pipeline
 							disableHostKeyChecking: true,
 							installation: 'ansible 2.9.12',
 							inventory: 'hosts',
-							playbook: 'cls_templates_playbook_sit.yml',
+							playbook: 'reimbursements/rem_templates_playbook_sit.yml',
 							sudoUser: null,
-							extraVars: [Env:"${params.Environment}",GROUP_ID:"${bitbucket_repo_name}",ARTIFACT_ID:"${bitbucket_branch_type}",VERSION:"${bitbucket_branch_name}",NEXUS_REPO_URL:"${nexus_repo_url}",JAVA_HOME:"${java_home}",PROPERTIES:"${env.WORKSPACE}/Files/SIT/cashless/",TEMPLATES_EXTENSION:"${extension_jar}",JBOSS_HOME_PATH_01:"${jboss_home_path_01}"]       
+							extraVars: [Env:"${params.Environment}",GROUP_ID:"${bitbucket_repo_name}",ARTIFACT_ID:"${bitbucket_branch_type}",VERSION:"${bitbucket_branch_name}",NEXUS_REPO_URL:"${nexus_repo_url}",JAVA_HOME:"${java_home}",PROPERTIES:"${env.WORKSPACE}/Files/SIT/reimbursements/",TEMPLATES_EXTENSION:"${extension_jar}",JBOSS_HOME_PATH_01:"${jboss_home_path_01}"]       
 						)
             	}
             }
