@@ -1,0 +1,95 @@
+---
+- hosts: "{{ Env }}_App_Deployment"
+  become: yes
+  become_user: deploy
+  vars_files:
+    - "./vars/variables"
+    - "./vars/vault"
+  tasks:
+    - maven_artifact:
+        group_id: "{{ GROUP_ID }}"
+        artifact_id: "{{ ARTIFACT_ID }}"
+        repository_url: "{{ NEXUS_REPO_URL }}"
+        extension: "{{ EXTENSION }}"
+        username: admin
+        version: "{{ VERSION }}"
+        password: "{{ NEXUS_REPO_PASS }}"
+        dest: "/tmp/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ EXTENSION }}"
+    
+    - maven_artifact:
+        group_id: "{{ GROUP_ID }}"
+        artifact_id: "{{ ARTIFACT_ID }}"
+        repository_url: "{{ NEXUS_REPO_URL }}"
+        extension: "{{ TEMPLATES_EXTENSION }}"
+        username: admin
+        version: "{{ VERSION }}"
+        password: "{{ NEXUS_REPO_PASS }}"
+        dest: "/tmp/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ TEMPLATES_EXTENSION }}"
+        
+    - name: Undeploy the ims.war file Jboss01 application
+      jboss:
+        deploy_path: "{{ JBOSS_HOME_PATH_01 }}/standalone/deployments"
+        deployment: cashless.war
+        state: absent
+    
+    - pause:
+        seconds: 10
+        
+    - name: To down the Jboss01 application
+      shell: |
+        JBOSS_HOME="{{ JBOSS_HOME_PATH_01 }}"
+        a=`echo $(pwdx $(ps -ef | grep java | grep -v grep | awk '{ print $2 }') | grep $JBOSS_HOME/bin | tr -s ' ' | cut -d ':' -f1)`
+        # Killing the exact PID
+        kill -9 $a
+        echo "Application Jboss01 down `date +%d%m20%y_%H%M%S`" >> /home/deploy/log.tx
+
+    - name: Copy Property file and Past it in Target Jboss01 Server
+      copy:
+        src: "{{ PROPERTIES }}"
+        dest: "{{ JBOSS_HOME_PATH_01 }}/standalone/data"   
+    
+    - name: Copy Templates file and Past it in Target Jboss01 Server
+      shell: |
+        export JAVA_HOME="{{ JAVA_HOME }}"
+        export PATH=$PATH:$JAVA_HOME/bin
+        JBOSS_HOME="{{ JBOSS_HOME_PATH_01 }}"
+        cd $JBOSS_HOME/standalone/data/templates
+        jar -xvf "/tmp/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ TEMPLATES_EXTENSION }}"
+
+    - pause:
+        seconds: 5
+              
+    - name: To Start the Jboss01 application
+      shell: |
+        export JAVA_HOME="{{ JAVA_HOME }}"
+        export PATH=$PATH:$JAVA_HOME/bin
+        JBOSS_HOME="{{ JBOSS_HOME_PATH_01 }}"
+        # Clearing the temps files
+        cd $JBOSS_HOME/standalone/tmp
+        rm -r *
+        echo "Removed temp directory"
+        #Removing the text and time data
+        cd $JBOSS_HOME/standalone/data
+        rm -r timer-service-data/ tx-object-store/
+        echo "Removed directories timer-service-data and tx-object-store"
+        # Start up the server
+        cd $JBOSS_HOME/bin/
+        mv nohup.out nohup_`date +%d_%m_20%y_%H_%M_%S`.out
+        nohup ./standalone.sh &
+        echo "JBOSS Application server started successfully"
+        echo "Application started `date +%d%m20%y_%H%M%S` " >> /home/deploy/log.txt
+            
+    - pause:
+        seconds: 30
+      
+    - name: Deploy the ims.war file in Jboss01 application
+      jboss:
+        src: "/tmp/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ EXTENSION }}"
+        deploy_path: "{{ JBOSS_HOME_PATH_01 }}/standalone/deployments"
+        deployment: cashless.war
+        state: present
+       
+    - name: Clearing War file from tmp
+      file:
+        path: "/tmp/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ EXTENSION }}"
+        state: absent  
