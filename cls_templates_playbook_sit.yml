@@ -28,3 +28,8 @@
         JBOSS_HOME="{{ JBOSS_HOME_PATH_01 }}"
         cd $JBOSS_HOME/standalone/data/templates
         jar -xvf "/tmp/cashless/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ TEMPLATES_EXTENSION }}"
+
+    - name: Clearing War file from tmp
+      file:
+        path: /tmp/cashless
+        state: absent
