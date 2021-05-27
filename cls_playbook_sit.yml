@@ -7,7 +7,7 @@
     - "./vars/vault"
   tasks:
 
-    - name: Clearing War file from tmp
+    - name: Creating cashless directory
       file:
         path: /tmp/cashless
         state: directory
