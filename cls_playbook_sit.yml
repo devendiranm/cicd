@@ -6,7 +6,7 @@
     - "./vars/variables"
     - "./vars/vault"
   tasks:
-  	
+
     - name: Clearing War file from tmp
       file:
         path: /tmp/cashless
