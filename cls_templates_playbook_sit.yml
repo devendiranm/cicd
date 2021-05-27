@@ -6,6 +6,11 @@
     - "./vars/variables"
     - "./vars/vault"
   tasks:
+    - name: Creating cashless directory
+      file:
+        path: /tmp/cashless
+        state: directory
+
     - maven_artifact:
         group_id: "{{ GROUP_ID }}"
         artifact_id: "{{ ARTIFACT_ID }}"
