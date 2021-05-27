@@ -90,7 +90,7 @@
       
     - name: Deploy the ims.war file in Jboss01 application
       jboss:
-        src: "/tmp/cashless{{ ARTIFACT_ID }}-{{ VERSION }}.{{ EXTENSION }}"
+        src: "/tmp/cashless/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ EXTENSION }}"
         deploy_path: "{{ JBOSS_HOME_PATH_01 }}/standalone/deployments"
         deployment: cashless.war
         state: present
