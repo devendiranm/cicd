@@ -19,7 +19,7 @@
         username: admin
         version: "{{ VERSION }}"
         password: "{{ NEXUS_REPO_PASS }}"
-        dest: "/tmp/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ TEMPLATES_EXTENSION }}"
+        dest: "/tmp/cashless/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ TEMPLATES_EXTENSION }}"
 
     - name: Copy Templates file and Past it in Target Jboss01 Server
       shell: |
@@ -27,7 +27,7 @@
         export PATH=$PATH:$JAVA_HOME/bin      
         JBOSS_HOME="{{ JBOSS_HOME_PATH_01 }}"
         cd $JBOSS_HOME/standalone/data/templates
-        jar -xvf "/tmp/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ TEMPLATES_EXTENSION }}"
+        jar -xvf "/tmp/cashless/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ TEMPLATES_EXTENSION }}"
 
     - name: Clearing War file from tmp
       file:
