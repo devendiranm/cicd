@@ -21,7 +21,7 @@
 	"cashless_bitbucket_repo_name": "gal-cashless",
   	"reimbursements_bitbucket_repo_name": "gal_reimbursements",
 	"bitbucket_branch_type": "release",
-	"bitbucket_branch_name": "release1",
+	"bitbucket_branch_name": "release1.0",
   	"extension": "war",
 	"templates_extension": "jar",
 	"galaxy_java_home": "/app/software/jdk1.8.0_151",
