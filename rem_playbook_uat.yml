@@ -9,7 +9,7 @@
     - name: Creating reimbursements directory
       file:
         path: /tmp/reimbursements
-        state: director
+        state: directory
         
     - maven_artifact:
         group_id: "{{ GROUP_ID }}"
