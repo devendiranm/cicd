@@ -6,12 +6,11 @@
     - "./vars/variables"
     - "./vars/vault"
   tasks:
-
     - name: Creating reimbursements directory
       file:
         path: /tmp/reimbursements
         state: directory
-        
+
     - maven_artifact:
         group_id: "{{ GROUP_ID }}"
         artifact_id: "{{ ARTIFACT_ID }}"
@@ -98,4 +97,4 @@
     - name: Clearing War file from tmp
       file:
         path: /tmp/reimbursements
-        state: absent  
+        state: absent
