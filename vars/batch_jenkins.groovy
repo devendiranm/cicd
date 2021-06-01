@@ -66,6 +66,9 @@ def call(Map pipelineParams)
                 	}
 //              		sh "export MAVEN_OPTS=-Xmx2048m"
             		sh "mvn clean install"
+                  	sh '''cd binconfig
+						jar -cvf binconfig.jar *.*'''
+
                     echo 'Build completed'
             	}
        		}
@@ -153,7 +156,7 @@ def call(Map pipelineParams)
 //					}
 //                }
 //            }
-            stage("Uploading master WAR file to Nexus")
+            stage("Uploading master JAR file to Nexus")
 			{
             	when
 				{
@@ -162,8 +165,12 @@ def call(Map pipelineParams)
         		steps
 				{
 					nexusArtifactUploader(
-						artifacts: [[artifactId: "${env.BRANCH_NAME}", classifier: '', file: "target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
+						artifacts: [[artifactId: "${env.BRANCH_NAME}", classifier: '', file: "gal-base-batch/target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
+						[artifactId: "${env.BRANCH_NAME}", classifier: '', file: "gal-mail-batch/target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
+						[artifactId: "${env.BRANCH_NAME}", classifier: '', file: "gal-spp-batch/target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
 							[artifactId: "${env.BRANCH_NAME}",classifier: '', file: "pom.xml", type: "pom" ],
+							[artifactId: "${env.BRANCH_NAME}",classifier: '', file: "binconfig/binconfig.jar", type: "jar" ]],
+
                 		credentialsId: 'd9f3ff8c-9dd2-4233-856f-db2921861c1a',
                 		groupId: "${bitbucket_repo}",
                 		nexusUrl: (pipelineParams.nexus_url),
@@ -183,9 +190,11 @@ def call(Map pipelineParams)
               	steps
               	{
         			nexusArtifactUploader(
-						artifacts: [[artifactId: "${branch_type}", classifier: '', file: "target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
+							artifacts: [[artifactId: "${branch_type}", classifier: '', file: "gal-base-batch/target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
+						[artifactId: "${branch_type}", classifier: '', file: "gal-mail-batch/target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
+						[artifactId: "${branch_type}", classifier: '', file: "gal-spp-batch/target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
 							[artifactId: "${branch_type}",classifier: '', file: "pom.xml", type: "pom" ],
-                      		[artifactId: "${branch_type}",classifier: '', file: "templates/templates.jar", type: "jar" ]],
+							[artifactId: "${branch_type}",classifier: '', file: "binconfig/binconfig.jar", type: "jar" ]],
                 		credentialsId: 'd9f3ff8c-9dd2-4233-856f-db2921861c1a',
                 		groupId: "${bitbucket_repo}",
                 		nexusUrl: (pipelineParams.nexus_url),
@@ -205,8 +214,11 @@ def call(Map pipelineParams)
         		steps
 				{
 					nexusArtifactUploader(
-						artifacts: [[artifactId: "${env.BRANCH_NAME}", classifier: '', file: "target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
+							artifacts: [[artifactId: "${env.BRANCH_NAME}", classifier: '', file: "gal-base-batch/target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
+						[artifactId: "${env.BRANCH_NAME}", classifier: '', file: "gal-mail-batch/target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
+						[artifactId: "${env.BRANCH_NAME}", classifier: '', file: "gal-spp-batch/target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
 							[artifactId: "${env.BRANCH_NAME}",classifier: '', file: "pom.xml", type: "pom" ],
+							[artifactId: "${env.BRANCH_NAME}",classifier: '', file: "binconfig/binconfig.jar", type: "jar" ]],
                 		credentialsId: 'd9f3ff8c-9dd2-4233-856f-db2921861c1a',
                 		groupId: "${bitbucket_repo}",
                 		nexusUrl: (pipelineParams.nexus_url),
