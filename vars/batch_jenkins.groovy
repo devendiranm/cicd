@@ -165,7 +165,7 @@ def call(Map pipelineParams)
         		steps
 				{
 					nexusArtifactUploader(
-						artifacts: [[artifactId: "${env.BRANCH_NAME}", classifier: '', file: "binconfig/binconfig.jar, type: "${artifactType}"]],
+						artifacts: [[artifactId: "${env.BRANCH_NAME}", classifier: '', file: "binconfig/binconfig.jar, type: "jar" ]],
                 		credentialsId: 'd9f3ff8c-9dd2-4233-856f-db2921861c1a',
                 		groupId: "${bitbucket_repo}",
                 		nexusUrl: (pipelineParams.nexus_url),
@@ -185,7 +185,7 @@ def call(Map pipelineParams)
               	steps
               	{
         			nexusArtifactUploader(
-                        artifacts: [[artifactId: "${branch_type}", classifier: '', file: "binconfig/binconfig.jar, type: "${artifactType}"]],
+                        artifacts: [[artifactId: "${branch_type}", classifier: '', file: "binconfig/binconfig.jar, type: "jar" ]],
                 		credentialsId: 'd9f3ff8c-9dd2-4233-856f-db2921861c1a',
                 		groupId: "${bitbucket_repo}",
                 		nexusUrl: (pipelineParams.nexus_url),
@@ -196,7 +196,7 @@ def call(Map pipelineParams)
 					)
                 }
             }
-          	stage("Uploading development WAR file to Nexus")
+          	stage("Uploading development JAR file to Nexus")
 			{
             	when
 				{
@@ -205,7 +205,7 @@ def call(Map pipelineParams)
         		steps
 				{
 					nexusArtifactUploader(
-					artifacts: [[artifactId: "${env.BRANCH_NAME}", classifier: '', file: "binconfig/binconfig.jar, type: "${artifactType}"]],
+					artifacts: [[artifactId: "${env.BRANCH_NAME}", classifier: '', file: "binconfig/binconfig.jar, type: "jar" ]],
                 		credentialsId: 'd9f3ff8c-9dd2-4233-856f-db2921861c1a',
                 		groupId: "${bitbucket_repo}",
                 		nexusUrl: (pipelineParams.nexus_url),
