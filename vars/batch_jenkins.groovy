@@ -165,12 +165,7 @@ def call(Map pipelineParams)
         		steps
 				{
 					nexusArtifactUploader(
-						artifacts: [[artifactId: "${env.BRANCH_NAME}", classifier: '', file: "gal-base-batch/target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
-						[artifactId: "${env.BRANCH_NAME}", classifier: '', file: "gal-mail-batch/target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
-						[artifactId: "${env.BRANCH_NAME}", classifier: '', file: "gal-spp-batch/target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
-							[artifactId: "${env.BRANCH_NAME}",classifier: '', file: "pom.xml", type: "pom" ],
 							[artifactId: "${env.BRANCH_NAME}",classifier: '', file: "binconfig/binconfig.jar", type: "jar" ]],
-
                 		credentialsId: 'd9f3ff8c-9dd2-4233-856f-db2921861c1a',
                 		groupId: "${bitbucket_repo}",
                 		nexusUrl: (pipelineParams.nexus_url),
@@ -190,11 +185,7 @@ def call(Map pipelineParams)
               	steps
               	{
         			nexusArtifactUploader(
-							artifacts: [[artifactId: "${branch_type}", classifier: '', file: "gal-base-batch/target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
-						[artifactId: "${branch_type}", classifier: '', file: "gal-mail-batch/target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
-						[artifactId: "${branch_type}", classifier: '', file: "gal-spp-batch/target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
-							[artifactId: "${branch_type}",classifier: '', file: "pom.xml", type: "pom" ],
-							[artifactId: "${branch_type}",classifier: '', file: "binconfig/binconfig.jar", type: "jar" ]],
+							artifacts: [[artifactId: "${branch_type}",classifier: '', file: "binconfig/binconfig.jar", type: "jar" ]],
                 		credentialsId: 'd9f3ff8c-9dd2-4233-856f-db2921861c1a',
                 		groupId: "${bitbucket_repo}",
                 		nexusUrl: (pipelineParams.nexus_url),
@@ -214,11 +205,7 @@ def call(Map pipelineParams)
         		steps
 				{
 					nexusArtifactUploader(
-							artifacts: [[artifactId: "${env.BRANCH_NAME}", classifier: '', file: "gal-base-batch/target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
-						[artifactId: "${env.BRANCH_NAME}", classifier: '', file: "gal-mail-batch/target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
-						[artifactId: "${env.BRANCH_NAME}", classifier: '', file: "gal-spp-batch/target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
-							[artifactId: "${env.BRANCH_NAME}",classifier: '', file: "pom.xml", type: "pom" ],
-							[artifactId: "${env.BRANCH_NAME}",classifier: '', file: "binconfig/binconfig.jar", type: "jar" ]],
+							artifacts: [[artifactId: "${env.BRANCH_NAME}",classifier: '', file: "binconfig/binconfig.jar", type: "jar" ]],
                 		credentialsId: 'd9f3ff8c-9dd2-4233-856f-db2921861c1a',
                 		groupId: "${bitbucket_repo}",
                 		nexusUrl: (pipelineParams.nexus_url),
