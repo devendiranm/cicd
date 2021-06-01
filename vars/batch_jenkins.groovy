@@ -67,7 +67,7 @@ def call(Map pipelineParams)
 //              		sh "export MAVEN_OPTS=-Xmx2048m"
             		sh "mvn clean install"
                   	sh '''cd binconfig
-						jar -cvf binconfig.jar *.*'''
+						jar -cvf binconfig.jar *'''
 
                     echo 'Build completed'
             	}
