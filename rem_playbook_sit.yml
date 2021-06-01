@@ -50,8 +50,13 @@
 
     - name: Copy Property file and Past it in Target Jboss01 Server
       copy:
-        src: "{{ PROPERTIES }}"
-        dest: "{{ JBOSS_HOME_PATH_01 }}/standalone/data"   
+        src: "{{ PROPERTIES }}UserRole.properties"
+        dest: "{{ JBOSS_HOME_PATH_01 }}/standalone/data"
+        
+    - name: Copy Property file and Past it in Target Jboss01 Server
+      copy:
+        src: "{{ PROPERTIES }}connection.properties"
+        dest: "{{ JBOSS_HOME_PATH_01 }}/standalone/data"    
     
     - name: Copy Templates file and Past it in Target Jboss01 Server
       shell: |
