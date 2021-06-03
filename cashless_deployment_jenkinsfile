@@ -49,7 +49,7 @@ pipeline
 			{
 				dir('config')
 				{
-					git branch:'master', credentialsId: "0fdb2372-9ce1-416c-ab11-5c859b484e73", url: 'https://bitbucket.starhealth.in/scm/cicd/galaxy.git'
+					git branch:'master', credentialsId: "jenkin-bitbucket", url: 'https://bitbucket.starhealth.in/scm/cicd/galaxy.git'
 					echo 'checkout completed'                
 					script
 					{  
@@ -75,7 +75,7 @@ pipeline
 			{
             	dir('Files')
                 {
-            		git branch: app_property_branch, credentialsId: '0fdb2372-9ce1-416c-ab11-5c859b484e73', url: app_property_url
+            		git branch: app_property_branch, credentialsId: 'jenkin-bitbucket', url: app_property_url
     				echo 'checkout completed'
                     echo "${params.Environment}"
                     echo "${params.TEMPLATE}"
@@ -95,7 +95,7 @@ pipeline
             {
             	dir('config')
    				{
-       				git branch:'master', credentialsId: '0fdb2372-9ce1-416c-ab11-5c859b484e73', url: 'https://bitbucket.starhealth.in/scm/cicd/galaxy.git'
+       				git branch:'master', credentialsId: 'jenkin-bitbucket', url: 'https://bitbucket.starhealth.in/scm/cicd/galaxy.git'
        				echo 'checkout completed'
             		echo 'Start UAT deployment'
 						ansiblePlaybook( 
@@ -125,7 +125,7 @@ pipeline
             {
             	dir('config')
    				{
-       				git branch:'master', credentialsId: '0fdb2372-9ce1-416c-ab11-5c859b484e73', url: 'https://bitbucket.starhealth.in/scm/cicd/galaxy.git'
+       				git branch:'master', credentialsId: 'jenkin-bitbucket', url: 'https://bitbucket.starhealth.in/scm/cicd/galaxy.git'
        				echo 'checkout completed'
             		echo 'Start UAT template deployment'
 						ansiblePlaybook( 
@@ -155,7 +155,7 @@ pipeline
             {
             	dir('config')
    				{
-       				git branch:'master', credentialsId: '0fdb2372-9ce1-416c-ab11-5c859b484e73', url: 'https://bitbucket.starhealth.in/scm/cicd/galaxy.git'
+       				git branch:'master', credentialsId: 'jenkin-bitbucket', url: 'https://bitbucket.starhealth.in/scm/cicd/galaxy.git'
        				echo 'checkout completed'
             		echo 'Start PROD deployment'
 						ansiblePlaybook( 
@@ -185,7 +185,7 @@ pipeline
             {
             	dir('config')
    				{
-       				git branch:'master', credentialsId: '0fdb2372-9ce1-416c-ab11-5c859b484e73', url: 'https://bitbucket.starhealth.in/scm/cicd/galaxy.git'
+       				git branch:'master', credentialsId: 'jenkin-bitbucket', url: 'https://bitbucket.starhealth.in/scm/cicd/galaxy.git'
        				echo 'checkout completed'
             		echo 'Start PROD template deployment'
 						ansiblePlaybook( 
