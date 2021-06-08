@@ -9,15 +9,15 @@ def call(Map pipelineParams)
     	options
   		{
     		buildDiscarder(
-            	logRotator(
-                	daysToKeepStr: '60',   // Build Records
-                	artifactDaysToKeepStr: '60'  //Artifacts from builds older than this number of days will be deleted, but the logs, history, reports, etc for the build will be kept
-            		)
-        		)
+            			logRotator(
+                					daysToKeepStr: '60',   // Build Records
+                					artifactDaysToKeepStr: '60'  //Artifacts from builds older than this number of days will be deleted, but the logs, history, reports, etc for the build will be kept
+            					  )
+        				  )
         	timeout(50)
         	timestamps()
         	disableConcurrentBuilds()
-    	}
+    	} // End of Options
   		environment 
 		{ 
     		projectArtifactId = 'ArtifactId'
@@ -45,9 +45,9 @@ def call(Map pipelineParams)
                   		echo "Branch Type is #${branch_type}#"
                       	branch = readFile('branch.txt').trim()
                       	echo "Branch name is #${branch}#"
-                	}
-            	}
-       		}
+                	} // End of Script
+            	} // End of steps
+       		} //End of stage ('Get Branch Type')
     		stage("Build and Package")
       		{
         		steps
@@ -64,13 +64,12 @@ def call(Map pipelineParams)
 						projectVersion = pom.getVersion()
 						artifactType = pom.getPackaging()
                 	}
-//              		sh "export MAVEN_OPTS=-Xmx2048m"
             		sh "mvn clean install"
                   	sh '''cd templates
 						jar -cvf templates.jar *.*'''
               		echo 'Build completed'
-            	}
-       		}
+            	} //End of steps
+       		} // End of stage("Build and Package")
 //     		stage('Sonarqube master')
 //			{
 //            	when
@@ -164,19 +163,19 @@ def call(Map pipelineParams)
         		steps
 				{
 					nexusArtifactUploader(
-						artifacts: [[artifactId: "${env.BRANCH_NAME}", classifier: '', file: "target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
-							[artifactId: "${env.BRANCH_NAME}",classifier: '', file: "pom.xml", type: "pom" ],
-                      		[artifactId: "${env.BRANCH_NAME}",classifier: '', file: "templates/templates.jar", type: "jar" ]],
-                		credentialsId: 'd9f3ff8c-9dd2-4233-856f-db2921861c1a',
-                		groupId: "${bitbucket_repo}",
-                		nexusUrl: (pipelineParams.nexus_url),
-                		nexusVersion: 'nexus3',
-                		protocol: 'http',
-                		repository: (pipelineParams.nexus_prod_repo),
-                      	version: "${env.BRANCH_NAME}"
-					)
-           		}
-            }
+                                          artifacts: [[artifactId: "${env.BRANCH_NAME}", classifier: '', file: "target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
+                                                      [artifactId: "${env.BRANCH_NAME}",classifier: '', file: "pom.xml", type: "pom" ],
+                                                      [artifactId: "${env.BRANCH_NAME}",classifier: '', file: "templates/templates.jar", type: "jar" ]],
+                                          credentialsId: 'd9f3ff8c-9dd2-4233-856f-db2921861c1a',
+                                          groupId: "${bitbucket_repo}",
+                                          nexusUrl: (pipelineParams.nexus_url),
+                                          nexusVersion: 'nexus3',
+                                          protocol: 'http',
+                                          repository: (pipelineParams.nexus_prod_repo),
+                                          version: "${env.BRANCH_NAME}"
+										 )
+           		} // End of steps
+            } // End of stage("Uploading master WAR file to Nexus")
           	stage("Uploading Relese WAR file to Nexus")
 			{
             	when
@@ -186,19 +185,19 @@ def call(Map pipelineParams)
               	steps
               	{
         			nexusArtifactUploader(
-						artifacts: [[artifactId: "${branch_type}", classifier: '', file: "target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
-							[artifactId: "${branch_type}",classifier: '', file: "pom.xml", type: "pom" ],
-                      		[artifactId: "${branch_type}",classifier: '', file: "templates/templates.jar", type: "jar" ]],
-                		credentialsId: 'd9f3ff8c-9dd2-4233-856f-db2921861c1a',
-                		groupId: "${bitbucket_repo}",
-                		nexusUrl: (pipelineParams.nexus_url),
-                		nexusVersion: 'nexus3',
-                		protocol: 'http',
-                		repository: (pipelineParams.nexus_prod_repo),
-                      	version: "${branch}"
-					)
-                }
-            }
+                                          artifacts: [[artifactId: "${branch_type}", classifier: '', file: "target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
+                                                      [artifactId: "${branch_type}",classifier: '', file: "pom.xml", type: "pom" ],
+                                                      [artifactId: "${branch_type}",classifier: '', file: "templates/templates.jar", type: "jar" ]],
+                                          credentialsId: 'd9f3ff8c-9dd2-4233-856f-db2921861c1a',
+                                          groupId: "${bitbucket_repo}",
+                                          nexusUrl: (pipelineParams.nexus_url),
+                                          nexusVersion: 'nexus3',
+                                          protocol: 'http',
+                                          repository: (pipelineParams.nexus_prod_repo),
+                                          version: "${branch}"
+										)
+                } // End of steps
+            } // End of stage("Uploading Relese WAR file to Nexus")
           	stage("Uploading development WAR file to Nexus")
 			{
             	when
@@ -208,19 +207,19 @@ def call(Map pipelineParams)
         		steps
 				{
 					nexusArtifactUploader(
-						artifacts: [[artifactId: "${env.BRANCH_NAME}", classifier: '', file: "target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
-							[artifactId: "${env.BRANCH_NAME}",classifier: '', file: "pom.xml", type: "pom" ],
-                      		[artifactId: "${env.BRANCH_NAME}",classifier: '', file: "templates/templates.jar", type: "jar" ]],
-                		credentialsId: 'd9f3ff8c-9dd2-4233-856f-db2921861c1a',
-                		groupId: "${bitbucket_repo}",
-                		nexusUrl: (pipelineParams.nexus_url),
-                		nexusVersion: 'nexus3',
-                		protocol: 'http',
-                		repository: (pipelineParams.nexus_nonprod_repo),
-                      	version: "${env.BRANCH_NAME}"
-					)
-           		}
-            }
+                                          artifacts: [[artifactId: "${env.BRANCH_NAME}", classifier: '', file: "target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
+                                                      [artifactId: "${env.BRANCH_NAME}",classifier: '', file: "pom.xml", type: "pom" ],
+                                                      [artifactId: "${env.BRANCH_NAME}",classifier: '', file: "templates/templates.jar", type: "jar" ]],
+                                          credentialsId: 'd9f3ff8c-9dd2-4233-856f-db2921861c1a',
+                                          groupId: "${bitbucket_repo}",
+                                          nexusUrl: (pipelineParams.nexus_url),
+                                          nexusVersion: 'nexus3',
+                                          protocol: 'http',
+                                          repository: (pipelineParams.nexus_nonprod_repo),
+                                          version: "${env.BRANCH_NAME}"
+										)
+           		} // End of steps
+            } // End of stage("Uploading development WAR file to Nexus")
           	stage('CleanWorkspace')
     		{
             	steps
@@ -228,7 +227,7 @@ def call(Map pipelineParams)
         			cleanWs()
         			echo 'Cleaned workspace'
                 }
-            }
-    	}
-	}
-}
+            } // end of stage('CleanWorkspace')
+    	} // End of stages
+	} // End of Pipeline
+} // End of def call(Map pipelineParams)
