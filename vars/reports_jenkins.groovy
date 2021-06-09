@@ -28,7 +28,7 @@ def call(Map pipelineParams)
           	branch_type = 'branch_type'
           	branch = 'branch'
             git_branch="${GIT_BRANCH.split("/")[1]}"
-          	echo "git branch is #${git_branch}#" 
+
       	}
 		stages
   		{
@@ -47,7 +47,8 @@ def call(Map pipelineParams)
                   		echo "Branch Type is #${branch_type}#"
                       	branch = readFile('branch.txt').trim()
                       	echo "Branch name is #${branch}#"
-                        
+                               	echo "git branch is #${git_branch}#" 
+                      
                 	} // End of Script
             	} // End of steps
        		} //End of stage ('Get Branch Type')
