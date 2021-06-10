@@ -224,6 +224,21 @@ def call(Map pipelineParams)
 //										)
 //           		} // End of steps
 //            } // End of stage("Uploading development WAR file to Nexus")
+          
+          
+          
+           	stage("Uploading development WAR file to Nexus")
+			{
+            	when { allOf 
+                	 		{ 
+                      			branch 'master';  branch 'develop'
+                    		} 
+            }
+            steps
+				{
+				  echo "Branch in nexus loop is : ${branch}"
+           		} // End of steps
+            } // End of stage("Uploading development WAR file to Nexus")
           	stage('CleanWorkspace')
     		{
             	steps
