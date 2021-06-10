@@ -158,88 +158,89 @@ def call(Map pipelineParams)
 //					}
 //                }
 //            }
-//            stage("Uploading master WAR file to Nexus")
-//			{
-//            	when
-//				{
-//                	branch 'master'
-//            	}
-//        		steps
-//				{
-//					nexusArtifactUploader(
-//                                          artifacts: [[artifactId: "${env.BRANCH_NAME}", classifier: '', file: "target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
-//                                                      [artifactId: "${env.BRANCH_NAME}",classifier: '', file: "pom.xml", type: "pom" ],
-//                                                      [artifactId: "${env.BRANCH_NAME}",classifier: '', file: "templates/templates.jar", type: "jar" ]],
-//                                          credentialsId: 'd9f3ff8c-9dd2-4233-856f-db2921861c1a',
-//                                          groupId: "${bitbucket_repo}",
-//                                          nexusUrl: (pipelineParams.nexus_url),
-//                                          nexusVersion: 'nexus3',
-//                                          protocol: 'http',
-//                                          repository: (pipelineParams.nexus_prod_repo),
-//                                          version: "${env.BRANCH_NAME}"
-//										 )
-//           		} // End of steps
-//            } // End of stage("Uploading master WAR file to Nexus")
-//          	stage("Uploading Relese WAR file to Nexus")
-//			{
-//            	when
-//				{
-//                	branch 'release/*'
-//	           	}
-//              	steps
-//              	{
-//        			nexusArtifactUploader(
-//                                          artifacts: [[artifactId: "${branch_type}", classifier: '', file: "target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
-//                                                      [artifactId: "${branch_type}",classifier: '', file: "pom.xml", type: "pom" ],
-//                                                      [artifactId: "${branch_type}",classifier: '', file: "templates/templates.jar", type: "jar" ]],
-//                                          credentialsId: 'd9f3ff8c-9dd2-4233-856f-db2921861c1a',
-//                                          groupId: "${bitbucket_repo}",
-//                                          nexusUrl: (pipelineParams.nexus_url),
-//                                          nexusVersion: 'nexus3',
-//                                          protocol: 'http',
-//                                          repository: (pipelineParams.nexus_prod_repo),
-//                                          version: "${branch}"
-//										)
-//                } // End of steps
-//            } // End of stage("Uploading Relese WAR file to Nexus")
-//          	stage("Uploading development WAR file to Nexus")
-//			{
-//            	when
-//				{
-//                	branch 'develop'
-//            	}
-//       		steps
-//				{
-//					nexusArtifactUploader(
-//                                          artifacts: [[artifactId: "${env.BRANCH_NAME}", classifier: '', file: "target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
-//                                                      [artifactId: "${env.BRANCH_NAME}",classifier: '', file: "pom.xml", type: "pom" ],
-//                                                      [artifactId: "${env.BRANCH_NAME}",classifier: '', file: "templates/templates.jar", type: "jar" ]],
-//                                          credentialsId: 'd9f3ff8c-9dd2-4233-856f-db2921861c1a',
-//                                          groupId: "${bitbucket_repo}",
-//                                          nexusUrl: (pipelineParams.nexus_url),
-//                                          nexusVersion: 'nexus3',
-//                                          protocol: 'http',
-//                                          repository: (pipelineParams.nexus_nonprod_repo),
-//                                          version: "${env.BRANCH_NAME}"
-//										)
-//           		} // End of steps
-//            } // End of stage("Uploading development WAR file to Nexus")
-          
-          
-          
-           	stage("Uploading development WAR file to Nexus")
+            stage("Uploading master WAR file to Nexus")
 			{
-            	when { allOf 
-                	 		{ 
-                      			branch 'master';  branch 'develop'
-                    		} 
-            }
-            steps
+            	when
 				{
-				  echo "Branch in nexus loop is : ${branch}"
+                	branch 'master'
+            	}
+        		steps
+				{
+					nexusArtifactUploader(
+                                          artifacts: [[artifactId: "${env.BRANCH_NAME}", classifier: '', file: "target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
+                                                      [artifactId: "${env.BRANCH_NAME}",classifier: '', file: "pom.xml", type: "pom" ],
+                                                      [artifactId: "${env.BRANCH_NAME}",classifier: '', file: "templates/templates.jar", type: "jar" ]],
+                                          credentialsId: 'd9f3ff8c-9dd2-4233-856f-db2921861c1a',
+                                          groupId: "${bitbucket_repo}",
+                                          nexusUrl: (pipelineParams.nexus_url),
+                                          nexusVersion: 'nexus3',
+                                          protocol: 'http',
+                                          repository: (pipelineParams.nexus_prod_repo),
+                                          version: "${env.BRANCH_NAME}"
+										 )
+           		} // End of steps
+            } // End of stage("Uploading master WAR file to Nexus")
+          	stage("Uploading Relese WAR file to Nexus")
+			{
+            	when
+				{
+                	branch 'release/*'
+	           	}
+              	steps
+              	{
+        			nexusArtifactUploader(
+                                          artifacts: [[artifactId: "${branch_type}", classifier: '', file: "target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
+                                                      [artifactId: "${branch_type}",classifier: '', file: "pom.xml", type: "pom" ],
+                                                      [artifactId: "${branch_type}",classifier: '', file: "templates/templates.jar", type: "jar" ]],
+                                          credentialsId: 'd9f3ff8c-9dd2-4233-856f-db2921861c1a',
+                                          groupId: "${bitbucket_repo}",
+                                          nexusUrl: (pipelineParams.nexus_url),
+                                          nexusVersion: 'nexus3',
+                                          protocol: 'http',
+                                          repository: (pipelineParams.nexus_prod_repo),
+                                          version: "${branch}"
+										)
+                } // End of steps
+            } // End of stage("Uploading Relese WAR file to Nexus")
+          	stage("Uploading development WAR file to Nexus")
+			{
+            	when
+				{
+                	branch 'develop'
+            	}
+       		steps
+				{
+					nexusArtifactUploader(
+                                          artifacts: [[artifactId: "${env.BRANCH_NAME}", classifier: '', file: "target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
+                                                      [artifactId: "${env.BRANCH_NAME}",classifier: '', file: "pom.xml", type: "pom" ],
+                                                      [artifactId: "${env.BRANCH_NAME}",classifier: '', file: "templates/templates.jar", type: "jar" ]],
+                                          credentialsId: 'd9f3ff8c-9dd2-4233-856f-db2921861c1a',
+                                          groupId: "${bitbucket_repo}",
+                                          nexusUrl: (pipelineParams.nexus_url),
+                                          nexusVersion: 'nexus3',
+                                          protocol: 'http',
+                                          repository: (pipelineParams.nexus_nonprod_repo),
+                                          version: "${env.BRANCH_NAME}"
+										)
            		} // End of steps
             } // End of stage("Uploading development WAR file to Nexus")
-          	stage('CleanWorkspace')
+          
+          
+          
+//           	stage("Uploading development and Master WAR file to Nexus")
+//			{
+//            	when { allOf 
+//                	 		{ 
+//                      			branch 'master';  branch 'develop'
+//                    		} 
+//            }
+//            steps
+//				{
+//				  echo "Branch in nexus loop is : ${branch}"
+//           		} // End of steps
+//            } // End of stage("Uploading development WAR file to Nexus")
+
+          stage('CleanWorkspace')
     		{
             	steps
               	{
