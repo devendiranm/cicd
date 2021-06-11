@@ -20,7 +20,7 @@ pipeline
 	{     
 		choice(
 			name: 'Environment',
-			choices: "UAT\nPROD",
+			choices: "UAT",
 			description: 'Select the Deployment Environment' )
         booleanParam(
 			name: 'TEMPLATE', 
