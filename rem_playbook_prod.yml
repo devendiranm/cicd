@@ -27,10 +27,16 @@
         dest: "/tmp/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ TEMPLATES_EXTENSION }}"
         
     - name: Undeploy the ims.war file Jboss01 application
-      jboss:
-        deploy_path: "{{ JBOSS_HOME_PATH_01 }}/standalone/deployments"
-        deployment: ims.war
-        state: absent
+      shell: |
+        JBOSS_HOME="{{ JBOSS_HOME_PATH_01 }}"
+        $JBOSS_HOME/bin/jboss-cli.sh -c --controller=$IP:$PORT --command=deployment-info | grep -i ims.war > /dev/null 2>&1
+        if [ "$?" == "0" ]; then
+        echo "Please wait removing ims.war file"
+        $JBOSS_HOME/bin/jboss-cli.sh -c --controller=$IP:$PORT --command="undeploy ims.war"
+        echo "IMS WAR FILE UNDEPLOYED SUCCESSFULLY.............."
+        else
+        echo "ims.war file already removed" 
+        fi
     
     - pause:
         seconds: 10
@@ -83,11 +89,13 @@
         seconds: 30
       
     - name: Deploy the ims.war file in Jboss01 application
-      jboss:
-        src: "/tmp/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ EXTENSION }}"
-        deploy_path: "{{ JBOSS_HOME_PATH_01 }}/standalone/deployments"
-        deployment: ims.war
-        state: present
+      shell: |
+        JBOSS_HOME="{{ JBOSS_HOME_PATH_01 }}"
+        echo "Deploying ims.war file. . . "
+        $JBOSS_HOME/bin/jboss-cli.sh -c --controller=$IP:$PORT --command="deploy $FILE_PATH/ims.war"
+        if [ $? -eq 0 ]; then
+        break
+        fi
        
     - name: Clearing War file from tmp
       file:
