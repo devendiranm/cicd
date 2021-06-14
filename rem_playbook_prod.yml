@@ -41,8 +41,8 @@
     - name: Undeploy the ims.war file Jboss01 application
       shell: |
         JBOSS_HOME="{{ JBOSS_HOME_PATH_01 }}"
-        HOST=10.24.14.8
-        PORT=10190
+        HOST="{{ HOST }}"
+        PORT="{{ JBOSS01_PORT }}"
         $JBOSS_HOME/bin/jboss-cli.sh -c --controller=$HOST:$PORT --command=deployment-info | grep -i ims.war > /dev/null 2>&1
         if [ "$?" == "0" ]; then
         echo "Please wait removing ims.war file"
@@ -107,8 +107,8 @@
       shell: |
         FILE_PATH=/app/WAR_FILE/reimbursement
         JBOSS_HOME="{{ JBOSS_HOME_PATH_01 }}"
-        HOST=10.24.14.8
-        PORT=10190
+        HOST="{{ HOST }}"
+        PORT="{{ JBOSS01_PORT }}"
         echo "Deploying ims.war file. . . "
         $JBOSS_HOME/bin/jboss-cli.sh -c --controller=$HOST:$PORT --command="deploy $FILE_PATH/ims.war"
         if [ $? -eq 0 ]; then
