@@ -83,6 +83,9 @@ pipeline
     				echo 'checkout completed'
                     echo "${params.Environment}"
                     echo "${params.TEMPLATE}"
+                    echo "${hostname}"
+                    echo "${jboss_01_port}"
+                    
             	}
             }
         }
