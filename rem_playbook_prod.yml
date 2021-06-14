@@ -34,9 +34,9 @@
     - name: Move war file to deployment path
       shell: |
         FILE_PATH=/app/WAR_FILE/reimbursement
-        cp "/tmp/reimbursements/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ EXTENSION }}" "$FILE_PATH/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ EXTENSION }}"
+        cp "/tmp/reimbursements/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ EXTENSION }}" $FILE_PATH/
         cp "$FILE_PATH/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ EXTENSION }}" $FILE_PATH/ims.war
-        cp "/tmp/reimbursements/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ TEMPLATES_EXTENSION }}" "$FILE_PATH/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ TEMPLATES_EXTENSION }}"
+        cp "/tmp/reimbursements/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ TEMPLATES_EXTENSION }}" $FILE_PATH/
                     
     - name: Undeploy the ims.war file Jboss01 application
       shell: |
