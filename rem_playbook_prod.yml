@@ -41,10 +41,12 @@
     - name: Undeploy the ims.war file Jboss01 application
       shell: |
         JBOSS_HOME="{{ JBOSS_HOME_PATH_01 }}"
-        $JBOSS_HOME/bin/jboss-cli.sh -c --controller="{{ HOST }}:{{ JBOSS01_PORT }}" --command=deployment-info | grep -i ims.war > /dev/null 2>&1
+        HOST=claimsapi-sit.starhealth.in
+        PORT=10190
+        $JBOSS_HOME/bin/jboss-cli.sh -c --controller=$HOST:$PORT --command=deployment-info | grep -i ims.war > /dev/null 2>&1
         if [ "$?" == "0" ]; then
         echo "Please wait removing ims.war file"
-        $JBOSS_HOME/bin/jboss-cli.sh -c --controller="{{ HOST }}:{{ JBOSS01_PORT }}" --command="undeploy ims.war"
+        $JBOSS_HOME/bin/jboss-cli.sh -c --controller=$HOST:$PORT --command="undeploy ims.war"
         echo "IMS WAR FILE UNDEPLOYED SUCCESSFULLY.............."
         else
         echo "ims.war file already removed" 
@@ -105,8 +107,10 @@
       shell: |
         FILE_PATH=/app/WAR_FILE/reimbursement
         JBOSS_HOME="{{ JBOSS_HOME_PATH_01 }}"
+        HOST=claimsapi-sit.starhealth.in
+        PORT=10190
         echo "Deploying ims.war file. . . "
-        $JBOSS_HOME/bin/jboss-cli.sh -c --controller="{{ HOST }}:{{ JBOSS01_PORT }}" --command="deploy $FILE_PATH/ims.war"
+        $JBOSS_HOME/bin/jboss-cli.sh -c --controller=$HOST:$PORT --command="deploy $FILE_PATH/ims.war"
         if [ $? -eq 0 ]; then
         break
         fi
