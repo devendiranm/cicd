@@ -19,7 +19,7 @@
         username: admin
         version: "{{ VERSION }}"
         password: "{{ NEXUS_REPO_PASS }}"
-        dest: "/app/WAR_FILE/reimbursement/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ EXTENSION }}"
+        dest: "/tmp/reimbursements/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ EXTENSION }}"
     
     - maven_artifact:
         group_id: "{{ GROUP_ID }}"
@@ -29,13 +29,15 @@
         username: admin
         version: "{{ VERSION }}"
         password: "{{ NEXUS_REPO_PASS }}"
-        dest: "/app/WAR_FILE/reimbursement/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ TEMPLATES_EXTENSION }}"
+        dest: "/tmp/reimbursements/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ TEMPLATES_EXTENSION }}"
     
     - name: Move war file to deployment path
       shell: |
         FILE_PATH=/app/WAR_FILE/reimbursement
+        cp "/tmp/reimbursements/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ EXTENSION }}" "$FILE_PATH/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ EXTENSION }}"
         cp "$FILE_PATH/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ EXTENSION }}" $FILE_PATH/ims.war
-            
+        cp "/tmp/reimbursements/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ TEMPLATES_EXTENSION }}" "$FILE_PATH/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ TEMPLATES_EXTENSION }}"
+                    
     - name: Undeploy the ims.war file Jboss01 application
       shell: |
         JBOSS_HOME="{{ JBOSS_HOME_PATH_01 }}"
@@ -66,11 +68,12 @@
     
     - name: Copy Templates file and Past it in Target Jboss01 Server
       shell: |
+        FILE_PATH=/app/WAR_FILE/reimbursement
         export JAVA_HOME="{{ JAVA_HOME }}"
         export PATH=$PATH:$JAVA_HOME/bin
         JBOSS_HOME="{{ JBOSS_HOME_PATH_01 }}"
         cd $JBOSS_HOME/standalone/data/templates
-        jar -xvf "/app/WAR_FILE/reimbursement/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ TEMPLATES_EXTENSION }}"
+        jar -xvf "$FILE_PATH/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ TEMPLATES_EXTENSION }}"
 
     - pause:
         seconds: 5
