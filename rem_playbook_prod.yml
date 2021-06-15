@@ -43,12 +43,10 @@
         JBOSS_HOME="{{ JBOSS_HOME_PATH_01 }}"
         export JAVA_HOME="{{ JAVA_HOME }}"
         export PATH=$PATH:$JAVA_HOME/bin
-        HOST="{{ HOST }}"
-        PORT="{{ JBOSS01_PORT }}"
-        $JBOSS_HOME/bin/jboss-cli.sh -c --controller=$HOST:$PORT --command=deployment-info | grep -i ims.war > /dev/null 2>&1
+        $JBOSS_HOME/bin/jboss-cli.sh -c --controller="{{ HOST }}":"{{ JBOSS01_PORT }}" --command=deployment-info | grep -i ims.war > /dev/null 2>&1
         if [ "$?" == "0" ]; then
         echo "Please wait removing ims.war file"
-        $JBOSS_HOME/bin/jboss-cli.sh -c --controller=$HOST:$PORT --command="undeploy ims.war"
+        $JBOSS_HOME/bin/jboss-cli.sh -c --controller="{{ HOST }}":"{{ JBOSS01_PORT }}" --command="undeploy ims.war"
         echo "IMS WAR FILE UNDEPLOYED SUCCESSFULLY.............."
         else
         echo "ims.war file already removed" 
@@ -111,10 +109,8 @@
         JBOSS_HOME="{{ JBOSS_HOME_PATH_01 }}"
         export JAVA_HOME="{{ JAVA_HOME }}"
         export PATH=$PATH:$JAVA_HOME/bin
-        HOST="{{ HOST }}"
-        PORT="{{ JBOSS01_PORT }}"
         echo "Deploying ims.war file. . . "
-        $JBOSS_HOME/bin/jboss-cli.sh -c --controller=$HOST:$PORT --command="deploy $FILE_PATH/ims.war"
+        $JBOSS_HOME/bin/jboss-cli.sh -c --controller="{{ HOST }}":"{{ JBOSS01_PORT }}" --command="deploy $FILE_PATH/ims.war"
         if [ $? -eq 0 ]; then
         break
         fi
