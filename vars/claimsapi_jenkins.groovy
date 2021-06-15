@@ -57,13 +57,13 @@ def call(Map pipelineParams)
                   	echo "Branch name is : ${branch}"
                   	echo (pipelineParams.nexus_url)
                  	script
-			     {
-			      pom = readMavenPom file: "pom.xml"
-                    	      projectArtifactId = pom.getArtifactId()
-			      projectGroupId = pom.getGroupId()
-		              projectVersion = pom.getVersion()
-			      artifactType = pom.getPackaging()
-                	}
+			        {
+			            pom = readMavenPom file: "pom.xml"
+                        projectArtifactId = pom.getArtifactId()
+			            projectGroupId = pom.getGroupId()
+		                projectVersion = pom.getVersion()
+			            artifactType = pom.getPackaging()
+                    }
 //              	sh "export MAVEN_OPTS=-Xmx2048m"
             		sh "mvn clean install"
               		echo 'Build completed'
@@ -163,7 +163,7 @@ def call(Map pipelineParams)
 				{
 					nexusArtifactUploader(
 						artifacts: [[artifactId: "${env.BRANCH_NAME}", classifier: '', file: "target/${projectArtifactId}.${artifactType}", type: "${artifactType}"],
-							[artifactId: "${env.BRANCH_NAME}",classifier: '', file: "pom.xml", type: "pom" ]],
+							       [artifactId: "${env.BRANCH_NAME}",classifier: '', file: "pom.xml", type: "pom" ]],
                 		credentialsId: 'd9f3ff8c-9dd2-4233-856f-db2921861c1a',
                 		groupId: "${bitbucket_repo}",
                 		nexusUrl: (pipelineParams.nexus_url),
