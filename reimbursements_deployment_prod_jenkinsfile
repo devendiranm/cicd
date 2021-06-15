@@ -114,6 +114,7 @@ pipeline
 							inventory: 'hosts',
 							playbook: 'rem_playbook_prod.yml',
 							sudoUser: null,
+                            extras: '-vvv',
 							extraVars: [Env:"${params.Environment}",GROUP_ID:"${bitbucket_repo_name}",ARTIFACT_ID:"${bitbucket_branch_type}",EXTENSION:"${extension_war}",VERSION:"${bitbucket_branch_name}",PROPERTIES:"${env.WORKSPACE}/Files/SIT/reimbursements/",TEMPLATES_EXTENSION:"${extension_jar}",NEXUS_REPO_URL:"${nexus_repo_url}",JAVA_HOME:"${java_home}",JBOSS_HOME_PATH_01:"${jboss_home_path_01}",HOST:"${hostname}",JBOSS01_PORT:"${jboss_01_port}"]       
 						)
             	}
