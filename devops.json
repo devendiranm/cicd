@@ -14,7 +14,7 @@
 	"galaxy_java_home": "/app/software/jdk1.8.0_151",
 	"galaxy_cls_jboss_home_path_01": "/app/jboss_cls/jboss-eap-7.0",
   	"galaxy_rem_jboss_home_path_01": "/app/jboss_EAP_7/jboss-eap-7.0",
-    "claimsapi_home_path": "/app/claimsapi_test",
+    "claimsapi_home_path": "/app/claimsapi",
 	"email": "release_team@starhealth.in,bcc:build.alert@starhealth.in,bcc:a.raja@starhealth.in,bcc:v.saranraj@starhealth.in,bcc:satish.kumar@starhealth.in,bcc:nofel.riswan@starhealth.in,bcc:dineshkumar.m@starhealth.in"
 		},
 "UAT": {
@@ -34,7 +34,7 @@
 	"galaxy_java_home": "/app/software/jdk1.8.0_151",
 	"galaxy_cls_jboss_home_path_01": "/app/jboss02_EAP_7/jboss-eap-7.0",
   	"galaxy_rem_jboss_home_path_01": "/app/jboss_EAP_7/jboss-eap-7.0",
-    "claimsapi_app_home_path": "/app/claimsapi_test",
+    "claimsapi_app_home_path": "/app/claimsapi",
 	"email": "release_team@starhealth.in,bcc:build.alert@starhealth.in,bcc:a.raja@starhealth.in,bcc:v.saranraj@starhealth.in,bcc:satish.kumar@starhealth.in,bcc:nofel.riswan@starhealth.in,bcc:dineshkumar.m@starhealth.in"
     },
 	
