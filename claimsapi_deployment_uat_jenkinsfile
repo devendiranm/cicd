@@ -33,7 +33,7 @@ pipeline
 		   extension_war = 'claimsapi_extension'
 		   nexus_repo_url = 'nexus_repo_url'
            java_home = 'galaxy_java_home'
-           claimsapi_path = 'claimsapi_app_home_path'
+           claimsapi_path = 'claimsapi_home_path'
 	}
     stages
 	{
