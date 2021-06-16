@@ -92,7 +92,7 @@ pipeline
 					inventory: 'hosts',
 					playbook: 'claimsapi_playbook_sit.yml',
 					sudoUser: null,
-					extraVars: [Env:"${params.Environment}",GROUP_ID:"${bitbucket_repo_name}",ARTIFACT_ID:"${bitbucket_branch_type}",EXTENSION:"${extension_war}",VERSION:"${bitbucket_branch_name}",PROPERTIES:"${env.WORKSPACE}/Files/SIT/claimapi/",NEXUS_REPO_URL:"${nexus_repo_url}",JAVA_HOME:"${java_home}",CLAIMSAPI_HOME_PATH:"${claimsapi_path}"]       
+					extraVars: [Env:"${params.Environment}",GROUP_ID:"${bitbucket_repo_name}",ARTIFACT_ID:"${bitbucket_branch_type}",EXTENSION:"${extension_war}",VERSION:"${bitbucket_branch_name}",PROPERTIES:"${env.WORKSPACE}/Files/SIT/claimsapi/",NEXUS_REPO_URL:"${nexus_repo_url}",JAVA_HOME:"${java_home}",CLAIMSAPI_HOME_PATH:"${claimsapi_path}"]       
 					)
             	}
             }
