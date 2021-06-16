@@ -97,6 +97,7 @@ pipeline
             	}
             }
         }
+    }
 	post
            { 
 		always
@@ -116,5 +117,4 @@ pipeline
             )
         }
     }
-}
 }
