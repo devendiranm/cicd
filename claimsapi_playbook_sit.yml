@@ -50,7 +50,7 @@
         export JAVA_HOME="{{ JAVA_HOME }}"
         export PATH=$JAVA_HOME/bin:$PATH
         #Starting up the server
-        cd /app/claimsapi_test/
+        cd /app/claimsapi/
         mv nohup.out nohup_`date +%d_%m_20%y_%H_%M_%S`.out
         nohup java -jar galaxy_claims_api.jar --spring.config.location=/app/claimsapi/application.properties >> /app/claimsapi/nohup_`date +%d_%m_20%y_%H_%M_%S`.out &
         #echo "Claimsapi Application started successfully"
