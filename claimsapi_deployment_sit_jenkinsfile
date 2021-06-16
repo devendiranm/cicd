@@ -34,6 +34,7 @@ pipeline
 		   nexus_repo_url = 'nexus_repo_url'
            java_home = 'galaxy_java_home'
            claimsapi_path = 'claimsapi_app_home_path'
+           EMAIL = 'email'
 	}
     stages
 	{
@@ -57,6 +58,7 @@ pipeline
                         nexus_repo_url = props["${params.Environment}"]['nexus_repo_url']
                         java_home = props["${params.Environment}"]['galaxy_java_home']
                        	claimsapi_path = props["${params.Environment}"]['claimsapi_app_home_path']
+                        EMAIL = props["${params.Environment}"]['email']
                    	 }
 			       }
 		     }
@@ -95,7 +97,7 @@ pipeline
             	}
             }
         }
-/*	post
+	post
            { 
 		always
                      {
@@ -114,5 +116,5 @@ pipeline
             )
         }
     }
-*/
+}
 }
