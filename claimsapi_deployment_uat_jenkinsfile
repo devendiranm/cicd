@@ -56,7 +56,7 @@ pipeline
 						extension_war = props["${params.Environment}"]['extension']
                			nexus_repo_url = props["${params.Environment}"]['nexus_repo_url']
                         java_home = props["${params.Environment}"]['galaxy_java_home']
-                       	claimsapi_path = props["${params.Environment}"]['claimsapi_app_home_path']
+                       	claimsapi_path = props["${params.Environment}"]['claimsapi_home_path']
                    		}
 			       }
 		     }
