@@ -41,7 +41,7 @@
                                    
     - name: Deploy the galaxy_claims_api.jar file in API application
       copy:
-        src: "/tmp/claimsapi/{{ ARTIFACT_ID }}-{{ VERSION }}--claimsapi.{{ EXTENSION }}"
+        src: "/tmp/claimsapi/{{ ARTIFACT_ID }}-{{ VERSION }}-claimsapi.{{ EXTENSION }}"
         dest: "{{ CLAIMSAPI_HOME_PATH }}/galaxy_claims_api.jar"
         remote_src: yes   
                                                          
