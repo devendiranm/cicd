@@ -25,11 +25,11 @@ pipeline
         }
 	environment 
 	{ 
-           app_property_url = 'claimsapi_property_url'
-		   app_property_branch = 'claimsapi_property_branch'
+           app_property_url = 'galaxy_property_url'
+		   app_property_branch = 'galaxy_property_branch'
 		   bitbucket_repo_name = 'claimsapi_bitbucket_repo_name'
 		   bitbucket_branch_type = 'bitbucket_branch_type'
-		   bitbucket_branch_name = 'bitbucket_branch_name'
+		   bitbucket_branch_name = 'claimsapi_bitbucket_branch_name'
 		   extension_war = 'claimsapi_extension'
 		   nexus_repo_url = 'nexus_repo_url'
            java_home = 'galaxy_java_home'
@@ -49,12 +49,12 @@ pipeline
 					script
 					{  
 						def props = readJSON file: "${env.WORKSPACE}/config/devops.json"
-						app_property_url = props["${params.Environment}"]['claimsapi_property_url']
-           				app_property_branch = props["${params.Environment}"]['claimsapi_property_branch']
+						app_property_url = props["${params.Environment}"]['galaxy_property_url']
+           				app_property_branch = props["${params.Environment}"]['galaxy_property_branch']
 						bitbucket_repo_name = props["${params.Environment}"]['claimsapi_bitbucket_repo_name']
 						bitbucket_branch_type = props["${params.Environment}"]['bitbucket_branch_type']
-						bitbucket_branch_name = props["${params.Environment}"]['bitbucket_branch_name']
-						extension_war = props["${params.Environment}"]['extension']
+						bitbucket_branch_name = props["${params.Environment}"]['claimsapi_bitbucket_branch_name']
+						extension_war = props["${params.Environment}"]['claimsapi_extension']
                			nexus_repo_url = props["${params.Environment}"]['nexus_repo_url']
                         java_home = props["${params.Environment}"]['galaxy_java_home']
                        	claimsapi_path = props["${params.Environment}"]['claimsapi_home_path']
@@ -98,10 +98,10 @@ pipeline
             }
         }
     }
-  post
-           { 
+    post
+        { 
 		always
-                     {
+            {
 			emailext (
 				attachLog: true, 
                 body: '''$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS: Check console output at $BUILD_URL to view the results.
