@@ -17,10 +17,10 @@
         artifact_id: "{{ ARTIFACT_ID }}"
         repository_url: "{{ NEXUS_REPO_URL }}"
         extension: "{{ EXTENSION }}"
-        version: "{{ VERSION }}"
+        version: "{{ VERSION }}-claimsapi"
         username: admin
         password: "{{ NEXUS_REPO_PASS }}"
-        dest: "/tmp/claimsapi/{{ ARTIFACT_ID }}-{{ VERSION }}-claimsapi.{{ EXTENSION }}"
+        dest: "/tmp/claimsapi/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ EXTENSION }}"
 
     - name: To down the Galaxy ClaimsAPI application
       shell: | 
