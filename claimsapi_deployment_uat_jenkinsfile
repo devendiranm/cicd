@@ -1,0 +1,118 @@
+pipeline
+{
+	agent
+	{
+        label 'Master'
+    }
+    options
+	{
+		buildDiscarder(
+			logRotator(
+                daysToKeepStr: '60',   // Build Records
+                artifactDaysToKeepStr: '60'  //Artifacts from builds older than this number of days will be deleted, but the logs, history, reports, etc for the build will be kept
+			)
+        )
+        timeout(50)
+        timestamps()
+        disableConcurrentBuilds()
+    }
+	parameters
+	{     
+		choice(
+			name: 'Environment',
+			choices: "UAT",
+			description: 'Select the Deployment Environment' )
+        }
+	environment 
+	{ 
+           	   app_property_url = 'claimsapi_property_url'
+		   app_property_branch = 'claimsapi_property_branch'
+		   bitbucket_repo_name = 'claimsapi_bitbucket_repo_name'
+		   bitbucket_branch_type = 'bitbucket_branch_type'
+		   bitbucket_branch_name = 'bitbucket_branch_name'
+		   extension_war = 'claimsapi_extension'
+		   nexus_repo_url = 'nexus_repo_url'
+                   java_home = 'galaxy_java_home'
+                   claimsapi_path = 'claimsapi_app_home_path'
+	}
+    stages
+	{
+		stage('Checkout config file')
+    	{
+			steps
+			{
+				dir('config')
+				{
+					git branch:'master', credentialsId: "jenkin-bitbucket", url: 'https://bitbucket.starhealth.in/scm/cicd/galaxy.git'
+					echo 'checkout completed'                
+					script
+					{  
+						def props = readJSON file: "${env.WORKSPACE}/config/devops.json"
+						app_property_url = props["${params.Environment}"]['claimsapi_property_url']
+                       				app_property_branch = props["${params.Environment}"]['claimsapi_property_branch']
+						bitbucket_repo_name = props["${params.Environment}"]['claimsapi_bitbucket_repo_name']
+						bitbucket_branch_type = props["${params.Environment}"]['bitbucket_branch_type']
+						bitbucket_branch_name = props["${params.Environment}"]['bitbucket_branch_name']
+						extension_war = props["${params.Environment}"]['extension']
+                        			nexus_repo_url = props["${params.Environment}"]['nexus_repo_url']
+                        			java_home = props["${params.Environment}"]['galaxy_java_home']
+                       				claimsapi_path = props["${params.Environment}"]['claimsapi_app_home_path']
+                   			 }
+			       }
+		     }
+        }
+        stage('Checkout PROPERTIES files')
+    	{
+			steps
+			{
+            	dir('Files')
+                {
+            		git branch: app_property_branch, credentialsId: 'jenkin-bitbucket', url: app_property_url
+    			echo 'checkout completed'
+            	}
+            }
+        }
+    	stage('Deployment')
+		{
+        	steps
+                    {
+            	    dir('config')
+   				{
+       				git branch:'master', credentialsId: 'jenkin-bitbucket', url: 'https://bitbucket.starhealth.in/scm/cicd/galaxy.git'
+       				echo 'checkout completed'
+            		        echo 'Start deployment'
+						ansiblePlaybook( 
+							become: true,
+							becomeUser: 'deploy',
+							credentialsId: 'b9d48739-b4dc-4914-b55a-7bf2d112c49d',
+							disableHostKeyChecking: true,
+							installation: 'ansible 2.9.12',
+							inventory: 'hosts',
+							playbook: 'cls_templates_playbook_uat',
+							sudoUser: null,
+							extraVars: [Env:"${params.Environment}",GROUP_ID:"${bitbucket_repo_name}",ARTIFACT_ID:"${bitbucket_branch_type}",EXTENSION:"${extension_war}",VERSION:"${bitbucket_branch_name}",PROPERTIES:"${env.WORKSPACE}/Files/UAT/claimapi",,NEXUS_REPO_URL:"${nexus_repo_url}",JAVA_HOME:"${java_home}",CLAIMSAPI_HOME_PATH:"${claimsapi_path}"]       
+						)
+            	}
+            }
+        }
+/*	post
+           { 
+		always
+                     {
+			emailext (
+				attachLog: true, 
+                body: '''$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS: Check console output at $BUILD_URL to view the results.
+                
+                
+                
+            FROM,
+            Release Team''', 
+                compressLog: true, 
+                subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS', 
+                to: "${EMAIL}",
+                from: 'build.alert@starhealth.in'
+            )
+        }
+    }
+*/
+}

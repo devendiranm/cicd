@@ -1,0 +1,57 @@
+---
+- hosts: "{{ Env }}_App_Deployment"
+  become: yes
+  become_user: deploy
+  vars_files:
+    - "./vars/variables"
+    - "./vars/vault"
+  tasks:
+
+    - name: Creating cashless directory
+      file:
+        path: /tmp/claimsapi
+        state: directory
+
+    - name: To down the Galaxy ClaimsAPI application
+      shell: | 
+        CLAIMSAPI_PATH="{{ CLAIMSAPI_HOME_PATH }}"
+        a=`echo $(pwdx $(ps -ef | grep java | grep -v grep | awk '{ print $2 }') | grep $CLAIMSAPI_PATH | tr -s ' ' | cut -d ':' -f1)`
+        kill -9 $a
+   
+    - name: Backup the Galaxy ClaimsAPI JAR
+      shell: |
+        cd "{{ CLAIMSAPI_HOME_PATH }}"
+        mv galaxy_claims_api.jar /tmp/galaxy_claims_api_`date +%d_%m_20%y_%H_%M_%S`.jar
+        #echo "Backup JAR File"
+        
+    - name: Copy the Property file and Paste it in Target Server
+      copy:
+        src: "{{ PROPERTIES }}"
+        dest: "{{ CLAIMSAPI_HOME_PATH }}"
+                                   
+    - maven_artifact:
+        group_id: "{{ GROUP_ID }}"
+        artifact_id: "{{ ARTIFACT_ID }}"
+        repository_url: "{{ NEXUS_REPO_URL }}"
+        extension: "{{ EXTENSION }}"
+        version: "{{ VERSION }}"
+        username: admin
+        password: "{{ NEXUS_REPO_PASS }}"
+        dest: "/tmp/claimsapi/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ EXTENSION }}"
+
+    - name: Deploy the galaxy_claims_api.jar file in API application
+      jboss:
+        src: "/tmp/claimsapi/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ EXTENSION }}"
+        deploy_path: "{{ CLAIMSAPI_HOME_PATH }}"
+        deployment: galaxy_claims_api.jar
+        state: present
+                                                         
+    - name: To Start the Jboss application
+      shell: |
+        export JAVA_HOME="{{ JAVA_HOME }}"
+        export PATH=$JAVA_HOME/bin:$PATH
+        #Starting up the server
+        cd /app/claimsapi_test/
+        mv nohup.out nohup_`date +%d_%m_20%y_%H_%M_%S`.out
+        nohup java -jar galaxy_claims_api.jar --spring.config.location=/app/claimsapi_test/application.properties >> /app/claimsapi_test/nohup_`date +%d_%m_20%y_%H_%M_%S`.out &
+        #echo "Claimsapi Application started successfully"
