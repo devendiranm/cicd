@@ -16,11 +16,11 @@
         group_id: "{{ GROUP_ID }}"
         artifact_id: "{{ ARTIFACT_ID }}"
         repository_url: "{{ NEXUS_REPO_URL }}"
-        extension: "{{ EXTENSION }}"
+        extension: "{{ EXTENSION }}-cashless"
         username: admin
         version: "{{ VERSION }}"
         password: "{{ NEXUS_REPO_PASS }}"
-        dest: "/tmp/cashless/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ EXTENSION }}"
+        dest: "/tmp/cashless/{{ ARTIFACT_ID }}-{{ VERSION }}-cashless.{{ EXTENSION }}"
     
     - maven_artifact:
         group_id: "{{ GROUP_ID }}"
@@ -28,9 +28,9 @@
         repository_url: "{{ NEXUS_REPO_URL }}"
         extension: "{{ TEMPLATES_EXTENSION }}"
         username: admin
-        version: "{{ VERSION }}"
+        version: "{{ VERSION }}-cashless"
         password: "{{ NEXUS_REPO_PASS }}"
-        dest: "/tmp/cashless/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ TEMPLATES_EXTENSION }}"
+        dest: "/tmp/cashless/{{ ARTIFACT_ID }}-{{ VERSION }}-cashless.{{ TEMPLATES_EXTENSION }}"
         
     - name: Undeploy the ims.war file Jboss01 application
       jboss:
@@ -60,7 +60,7 @@
         export PATH=$PATH:$JAVA_HOME/bin
         JBOSS_HOME="{{ JBOSS_HOME_PATH_01 }}"
         cd $JBOSS_HOME/standalone/data/templates
-        jar -xvf "/tmp/cashless/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ TEMPLATES_EXTENSION }}"
+        jar -xvf "/tmp/cashless/{{ ARTIFACT_ID }}-{{ VERSION }}-cashless.{{ TEMPLATES_EXTENSION }}"
 
     - pause:
         seconds: 5
@@ -90,7 +90,7 @@
       
     - name: Deploy the ims.war file in Jboss01 application
       jboss:
-        src: "/tmp/cashless/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ EXTENSION }}"
+        src: "/tmp/cashless/{{ ARTIFACT_ID }}-{{ VERSION }}-cashless.{{ EXTENSION }}"
         deploy_path: "{{ JBOSS_HOME_PATH_01 }}/standalone/deployments"
         deployment: cashless.war
         state: present
