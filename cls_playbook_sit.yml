@@ -18,7 +18,7 @@
         repository_url: "{{ NEXUS_REPO_URL }}"
         extension: "{{ EXTENSION }}-cashless"
         username: admin
-        version: "{{ VERSION }}"
+        version: "{{ VERSION }}-cashless"
         password: "{{ NEXUS_REPO_PASS }}"
         dest: "/tmp/cashless/{{ ARTIFACT_ID }}-{{ VERSION }}-cashless.{{ EXTENSION }}"
     
