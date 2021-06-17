@@ -17,9 +17,9 @@
         repository_url: "{{ NEXUS_REPO_URL }}"
         extension: "{{ EXTENSION }}"
         username: admin
-        version: "{{ VERSION }}"
+        version: "{{ VERSION }}-ims"
         password: "{{ NEXUS_REPO_PASS }}"
-        dest: "/tmp/reimbursements/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ EXTENSION }}"
+        dest: "/tmp/reimbursements/{{ ARTIFACT_ID }}-{{ VERSION }}-ims.{{ EXTENSION }}"
     
     - maven_artifact:
         group_id: "{{ GROUP_ID }}"
@@ -27,9 +27,9 @@
         repository_url: "{{ NEXUS_REPO_URL }}"
         extension: "{{ TEMPLATES_EXTENSION }}"
         username: admin
-        version: "{{ VERSION }}"
+        version: "{{ VERSION }}-ims"
         password: "{{ NEXUS_REPO_PASS }}"
-        dest: "/tmp/reimbursements/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ TEMPLATES_EXTENSION }}"
+        dest: "/tmp/reimbursements/{{ ARTIFACT_ID }}-{{ VERSION }}-ims.{{ TEMPLATES_EXTENSION }}"
         
     - name: Undeploy the ims.war file Jboss01 application
       jboss:
@@ -64,7 +64,7 @@
         export PATH=$PATH:$JAVA_HOME/bin
         JBOSS_HOME="{{ JBOSS_HOME_PATH_01 }}"
         cd $JBOSS_HOME/standalone/data/templates
-        jar -xvf "/tmp/reimbursements/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ TEMPLATES_EXTENSION }}"
+        jar -xvf "/tmp/reimbursements/{{ ARTIFACT_ID }}-{{ VERSION }}-ims.{{ TEMPLATES_EXTENSION }}"
 
     - pause:
         seconds: 5
@@ -94,7 +94,7 @@
       
     - name: Deploy the ims.war file in Jboss01 application
       jboss:
-        src: "/tmp/reimbursements/{{ ARTIFACT_ID }}-{{ VERSION }}.{{ EXTENSION }}"
+        src: "/tmp/reimbursements/{{ ARTIFACT_ID }}-{{ VERSION }}-ims.{{ EXTENSION }}"
         deploy_path: "{{ JBOSS_HOME_PATH_01 }}/standalone/deployments"
         deployment: ims.war
         state: present
