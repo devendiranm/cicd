@@ -68,7 +68,7 @@ def call(Map pipelineParams)
 						projectVersion = pom.getVersion()
 						artifactType = pom.getPackaging()
                 	}
-            		//sh "mvn clean install"
+            		sh "mvn clean install"
                   	//sh '''cd templates
 					//	jar -cvf templates.jar *.*'''
               		echo 'Build completed'
@@ -188,7 +188,8 @@ def call(Map pipelineParams)
 	           	}
               	steps
               	{
-        			nexusArtifactUploader(
+        			echo "branch name inside when loop  ${git_branch}" 
+                  	nexusArtifactUploader(
                                           artifacts: [[artifactId: "${branch_type}", classifier: '', file: "target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
                                                       [artifactId: "${branch_type}",classifier: '', file: "pom.xml", type: "pom" ],
                                                       [artifactId: "${branch_type}",classifier: '', file: "templates/templates.jar", type: "jar" ]],
