@@ -39,7 +39,7 @@ pipeline
            nexus_repo_url = 'nexus_repo_url'
            java_home = 'galaxy_java_home'
            hostname = 'hostname'
-           jboss_01_port = 'cls_jboss01_port'
+           jboss_01_port = 'rem_jboss01_port'
            jboss_home_path_01 = 'galaxy_rem_jboss_home_path_01'
            EMAIL = 'email'
 	}
@@ -65,7 +65,7 @@ pipeline
 						extension_jar = props["${params.Environment}"]['templates_extension']
                         nexus_repo_url = props["${params.Environment}"]['nexus_repo_url']
                         hostname = props["${params.Environment}"]['hostname']
-                        jboss_01_port = props["${params.Environment}"]['cls_jboss01_port']
+                        jboss_01_port = props["${params.Environment}"]['rem_jboss01_port']
                         java_home = props["${params.Environment}"]['galaxy_java_home']
                         jboss_home_path_01 = props["${params.Environment}"]['galaxy_rem_jboss_home_path_01']
 						EMAIL = props["${params.Environment}"]['email']
