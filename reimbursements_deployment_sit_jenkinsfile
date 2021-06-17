@@ -37,6 +37,8 @@ pipeline
 		   extension_war = 'extension'
 		   extension_jar = 'templates_extension'
            nexus_repo_url = 'nexus_repo_url'
+           hostname = 'hostname'
+           jboss_01_port = 'rem_jboss01_port'
            java_home = 'galaxy_java_home'
            jboss_home_path_01 = 'galaxy_rem_jboss_home_path_01'
            EMAIL = 'email'
@@ -62,6 +64,8 @@ pipeline
 						extension_war = props["${params.Environment}"]['extension']
 						extension_jar = props["${params.Environment}"]['templates_extension']
                         nexus_repo_url = props["${params.Environment}"]['nexus_repo_url']
+                        hostname = props["${params.Environment}"]['hostname']
+                        jboss_01_port = props["${params.Environment}"]['rem_jboss01_port']
                         java_home = props["${params.Environment}"]['galaxy_java_home']
                         jboss_home_path_01 = props["${params.Environment}"]['galaxy_rem_jboss_home_path_01']
 						EMAIL = props["${params.Environment}"]['email']
@@ -105,7 +109,7 @@ pipeline
 							inventory: 'hosts',
 							playbook: 'rem_playbook_sit.yml',
 							sudoUser: null,
-							extraVars: [Env:"${params.Environment}",GROUP_ID:"${bitbucket_repo_name}",ARTIFACT_ID:"${bitbucket_branch_type}",EXTENSION:"${extension_war}",VERSION:"${bitbucket_branch_name}",PROPERTIES:"${env.WORKSPACE}/Files/SIT/reimbursements/",TEMPLATES_EXTENSION:"${extension_jar}",NEXUS_REPO_URL:"${nexus_repo_url}",JAVA_HOME:"${java_home}",JBOSS_HOME_PATH_01:"${jboss_home_path_01}"]       
+							extraVars: [Env:"${params.Environment}",GROUP_ID:"${bitbucket_repo_name}",ARTIFACT_ID:"${bitbucket_branch_type}",EXTENSION:"${extension_war}",VERSION:"${bitbucket_branch_name}",PROPERTIES:"${env.WORKSPACE}/Files/SIT/reimbursements/",TEMPLATES_EXTENSION:"${extension_jar}",NEXUS_REPO_URL:"${nexus_repo_url}",JAVA_HOME:"${java_home}",JBOSS_HOME_PATH_01:"${jboss_home_path_01}",HOST:"${hostname}",JBOSS01_PORT:"${jboss_01_port}"]       
 						)
             	}
             }
