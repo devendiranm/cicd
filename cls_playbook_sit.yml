@@ -16,7 +16,7 @@
         group_id: "{{ GROUP_ID }}"
         artifact_id: "{{ ARTIFACT_ID }}"
         repository_url: "{{ NEXUS_REPO_URL }}"
-        extension: "{{ EXTENSION }}-cashless"
+        extension: "{{ EXTENSION }}"
         username: admin
         version: "{{ VERSION }}-cashless"
         password: "{{ NEXUS_REPO_PASS }}"
