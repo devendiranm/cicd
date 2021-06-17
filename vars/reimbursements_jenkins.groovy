@@ -173,7 +173,7 @@ def call(Map pipelineParams)
                 		nexusVersion: 'nexus3',
                 		protocol: 'http',
                 		repository: (pipelineParams.nexus_prod_repo),
-                      	version: "${env.BRANCH_NAME}"
+                      	version: "${env.BRANCH_NAME}-ims"
 					)
            		}
             }
@@ -195,7 +195,7 @@ def call(Map pipelineParams)
                 		nexusVersion: 'nexus3',
                 		protocol: 'http',
                 		repository: (pipelineParams.nexus_prod_repo),
-                      	version: "${branch}"
+                      	version: "${branch}-ims"
 					)
                 }
             }
@@ -217,7 +217,7 @@ def call(Map pipelineParams)
                 		nexusVersion: 'nexus3',
                 		protocol: 'http',
                 		repository: (pipelineParams.nexus_nonprod_repo),
-                      	version: "${env.BRANCH_NAME}"
+                      	version: "${env.BRANCH_NAME}-ims"
 					)
            		}
             }
