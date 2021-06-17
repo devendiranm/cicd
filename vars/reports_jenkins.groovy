@@ -69,8 +69,8 @@ def call(Map pipelineParams)
 						artifactType = pom.getPackaging()
                 	}
             		sh "mvn clean install"
-                  	//sh '''cd templates
-					//	jar -cvf templates.jar *.*'''
+                  	sh '''cd templates
+					jar -cvf templates.jar *.*'''
               		echo 'Build completed'
             	} //End of steps
        		} // End of stage("Build and Package")
