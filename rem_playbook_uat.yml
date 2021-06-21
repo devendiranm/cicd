@@ -105,7 +105,7 @@
         echo "Application started `date +%d%m20%y_%H%M%S` " >> /home/deploy/log.txt
             
     - pause:
-        seconds: 30
+        seconds: 60
       
     - name: Deploy the ims.war file in Jboss01 application
       shell: |
