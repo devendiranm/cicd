@@ -47,7 +47,7 @@
         if [ "$?" == "0" ]; then
         echo "Please wait removing cashless.war file"
         $JBOSS_HOME/bin/jboss-cli.sh -c --controller="{{ HOST }}":"{{ JBOSS01_PORT }}" --command="undeploy cashless.war"
-        echo "IMS WAR FILE UNDEPLOYED SUCCESSFULLY.............."
+        echo "cashless WAR FILE UNDEPLOYED SUCCESSFULLY.............."
         else
         echo "cashless.war file already removed" 
         fi
