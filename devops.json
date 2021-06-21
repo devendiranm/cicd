@@ -29,7 +29,7 @@
     "claimsapi_bitbucket_repo_name": "gal-claimsapi",
 	"bitbucket_branch_type": "release",
 	"cls_bitbucket_branch_name": "release0.0.4",
-  	"rem_bitbucket_branch_name": "release0.0.9",
+  	"rem_bitbucket_branch_name": "release0.1.0",
     "claimsapi_bitbucket_branch_name": "release0.0.1",
   	"extension": "war",
 	"templates_extension": "jar",
