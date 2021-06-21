@@ -34,9 +34,9 @@
     - name: Move war file to deployment path
       shell: |
         FILE_PATH=/app/WAR_FILE/cashless/release
-        cp "/tmp/cashless/{{ ARTIFACT_ID }}-{{ VERSION }}-ims.{{ EXTENSION }}" $FILE_PATH/
-        cp "$FILE_PATH/{{ ARTIFACT_ID }}-{{ VERSION }}-ims.{{ EXTENSION }}" $FILE_PATH/ims.war
-        cp "/tmp/cashless/{{ ARTIFACT_ID }}-{{ VERSION }}-ims.{{ TEMPLATES_EXTENSION }}" $FILE_PATH/
+        cp "/tmp/cashless/{{ ARTIFACT_ID }}-{{ VERSION }}-cashless.{{ EXTENSION }}" $FILE_PATH/
+        cp "$FILE_PATH/{{ ARTIFACT_ID }}-{{ VERSION }}-cashless.{{ EXTENSION }}" $FILE_PATH/cashless.war
+        cp "/tmp/cashless/{{ ARTIFACT_ID }}-{{ VERSION }}-cashless.{{ TEMPLATES_EXTENSION }}" $FILE_PATH/
     
     - name: Undeploy the cashless.war file Jboss01 application
       shell: |
