@@ -28,7 +28,7 @@
   	"reimbursements_bitbucket_repo_name": "gal-reimbursements",
     "claimsapi_bitbucket_repo_name": "gal-claimsapi",
 	"bitbucket_branch_type": "release",
-	"cls_bitbucket_branch_name": "release0.0.5",
+	"cls_bitbucket_branch_name": "release0.0.6",
   	"rem_bitbucket_branch_name": "release0.1.0",
     "claimsapi_bitbucket_branch_name": "release0.0.1",
   	"extension": "war",
