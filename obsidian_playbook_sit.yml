@@ -63,9 +63,6 @@
         cd $OBSIDIAN_HOME/bin
         ./startup.sh &
     
-    - pause:
-        seconds: 60
-            
     - name: Clearing War file from tmp
       file:
         path: /tmp/obsidian
