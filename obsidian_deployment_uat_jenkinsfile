@@ -30,11 +30,11 @@ pipeline
 		   bitbucket_repo_name = 'obsidian_bitbucket_repo_name'
 		   bitbucket_branch_type = 'bitbucket_branch_type'
 		   bitbucket_branch_name = 'obsidian_bitbucket_branch_name'
-		   extension_war = 'obsidian_extension'
+		   extension_jar = 'obsidian_extension'
            nexus_repo_url = 'nexus_repo_url'
            java_home = 'galaxy_java_home'
            obsidian_path = 'obsidian_app_home_path'
-           --EMAIL = 'email'
+//         EMAIL = 'email'
 	}
     stages
 	{
@@ -54,11 +54,11 @@ pipeline
 						bitbucket_repo_name = props["${params.Environment}"]['obsidian_bitbucket_repo_name']
 						bitbucket_branch_type = props["${params.Environment}"]['bitbucket_branch_type']
 						bitbucket_branch_name = props["${params.Environment}"]['obsidian_bitbucket_branch_name']
-						extension_war = props["${params.Environment}"]['obsidian_extension']
+						extension_jar = props["${params.Environment}"]['obsidian_extension']
                         nexus_repo_url = props["${params.Environment}"]['nexus_repo_url']
                         java_home = props["${params.Environment}"]['galaxy_java_home']
                         obsidian_path = props["${params.Environment}"]['obsidian_app_home_path']
-						--EMAIL = props["${params.Environment}"]['email']
+//                      EMAIL = props["${params.Environment}"]['email']
                     }
 				}
 			}
@@ -92,7 +92,7 @@ pipeline
 							inventory: 'hosts',
 							playbook: 'obsidian_playbook_uat.yml',
 							sudoUser: null,
-							extraVars: [Env:"${params.Environment}",GROUP_ID:"${bitbucket_repo_name}",ARTIFACT_ID:"${bitbucket_branch_type}",EXTENSION:"${extension_war}",VERSION:"${bitbucket_branch_name}",PROPERTIES:"${env.WORKSPACE}/Files/UAT/obsidian/",OBSIDIAN_EXTENSION:"${extension_jar}",NEXUS_REPO_URL:"${nexus_repo_url}",JAVA_HOME:"${java_home}",OBSIDIAN_HOME_PATH:"${obsidian_path}"]       
+							extraVars: [Env:"${params.Environment}",GROUP_ID:"${bitbucket_repo_name}",ARTIFACT_ID:"${bitbucket_branch_type}",EXTENSION:"${extension_jar}",VERSION:"${bitbucket_branch_name}",PROPERTIES:"${env.WORKSPACE}/Files/UAT/obsidian/",NEXUS_REPO_URL:"${nexus_repo_url}",JAVA_HOME:"${java_home}",OBSIDIAN_HOME_PATH:"${obsidian_path}"]       
 						)
             	}
             }
