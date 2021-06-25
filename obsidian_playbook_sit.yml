@@ -59,7 +59,7 @@
         export PATH=$PATH:$JAVA_HOME/bin
         OBSIDIAN_HOME="{{ OBSIDIAN_HOME_PATH }}"
         cd /app/tomcat/apache-tomcat-9.0.22/bin
-        ./startup.sh
+        nohup ./startup.sh &
     
     - pause:
         seconds: 60
