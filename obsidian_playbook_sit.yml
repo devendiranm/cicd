@@ -33,7 +33,7 @@
         echo "OBSIDIAN stopped `date +%d%m20%y_%H%M%S`" >> Obsidian_log.txt
         
     - pause:
-        seconds: 10
+        seconds: 180
      
     - name: Backup of the Obsidian JAR
       shell: |
@@ -43,7 +43,7 @@
         #echo "Backup JAR File"
      
     - pause:
-        seconds: 60
+        seconds: 10
         
     - name: Copy Property file and Past it in Target tomcat Server
       copy:
