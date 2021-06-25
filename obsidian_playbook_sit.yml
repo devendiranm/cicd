@@ -58,8 +58,10 @@
         export JAVA_HOME="{{ JAVA_HOME }}"
         export PATH=$PATH:$JAVA_HOME/bin
         OBSIDIAN_HOME="{{ OBSIDIAN_HOME_PATH }}"
-        cd /app/tomcat/apache-tomcat-9.0.22/bin
-        nohup ./startup.sh &
+        cd $OBSIDIAN_HOME/logs
+        mv catalina.out catalina_`date +%d_%m_20%y_%H_%M_%S`.out
+        cd $OBSIDIAN_HOME/bin
+        ./startup.sh &
     
     - pause:
         seconds: 60
