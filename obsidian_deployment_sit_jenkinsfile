@@ -34,7 +34,7 @@ pipeline
            nexus_repo_url = 'nexus_repo_url'
            java_home = 'galaxy_java_home'
            obsidian_path = 'obsidian_app_home_path'
-           --EMAIL = 'email'
+//           EMAIL = 'email'
 	}
     stages
 	{
