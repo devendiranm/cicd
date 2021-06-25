@@ -215,7 +215,7 @@ def call(Map pipelineParams)
 					)
            		}
             }
-         	stage('CleanWorkspace')
+/*        	stage('CleanWorkspace')
     		{
             	steps
               	{
@@ -223,6 +223,7 @@ def call(Map pipelineParams)
         			echo 'Cleaned workspace'
                 }
             }
+            */
     	}
 	}
 }
