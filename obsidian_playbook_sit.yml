@@ -33,7 +33,7 @@
         echo "OBSIDIAN stopped `date +%d%m20%y_%H%M%S`" >> Obsidian_log.txt
         
     - pause:
-        seconds: 180
+        seconds: 120
      
     - name: Backup of the Obsidian JAR
       shell: |
@@ -41,10 +41,7 @@
         cd $OBSIDIAN_HOME/webapps/obsidian/WEB-INF/lib
         mv SMSExecutorJob.jar /home/release/Backup/SMSExecutorJob_`date +%d_%m_20%y_%H_%M_%S`.jar
         #echo "Backup JAR File"
-     
-    - pause:
-        seconds: 10
-        
+           
     - name: Copy Property file and Past it in Target tomcat Server
       copy:
         src: "{{ PROPERTIES }}"
@@ -63,7 +60,7 @@
         echo "OBSIDIAN stopped `date +%d%m20%y_%H%M%S`" >> Obsidian_log.txt
             
     - pause:
-        seconds: 30
+        seconds: 10
       
     - name: Deploy the obsidian jar file in tomcat server application
       copy:
