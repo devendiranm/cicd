@@ -33,12 +33,12 @@
         echo "OBSIDIAN stopped `date +%d%m20%y_%H%M%S`" >> Obsidian_log.txt
         
     - pause:
-        seconds: 120
+        seconds: 80
      
     - name: Backup of the Obsidian JAR
       shell: |
         OBSIDIAN_HOME="{{ OBSIDIAN_HOME_PATH }}"
-        cd $OBSIDIAN_HOME/webapps/obsidian/WEB-INF/lib
+        cd $OBSIDIAN_HOME/webapps/obsidian/WEB-INF/lib/
         mv SMSExecutorJob.jar /home/release/Backup/SMSExecutorJob_`date +%d_%m_20%y_%H_%M_%S`.jar
         #echo "Backup JAR File"
            
