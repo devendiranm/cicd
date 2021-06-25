@@ -61,7 +61,7 @@
         cd $OBSIDIAN_HOME/logs
         mv catalina.out catalina_`date +%d_%m_20%y_%H_%M_%S`.out
         cd $OBSIDIAN_HOME/bin
-        ./startup.sh &
+        nohup ./startup.sh &
     
     - name: Clearing War file from tmp
       file:
