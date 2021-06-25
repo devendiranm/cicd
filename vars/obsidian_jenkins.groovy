@@ -223,7 +223,7 @@ def call(Map pipelineParams)
         			echo 'Cleaned workspace'
                 }
             }
-            */
+*/
     	}
 	}
 }
