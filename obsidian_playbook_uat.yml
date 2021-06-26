@@ -33,23 +33,26 @@
         echo "OBSIDIAN stopped `date +%d%m20%y_%H%M%S`" >> Obsidian_log.txt
         
     - pause:
-        seconds: 10
+        seconds: 60
      
     - name: Backup of the Obsidian JAR
       shell: |
         OBSIDIAN_HOME="{{ OBSIDIAN_HOME_PATH }}"
         cd $OBSIDIAN_HOME/webapps/obsidian/WEB-INF/lib
-        mv SMSExecutorJob.jar /home/release/Backup/SMSExecutorJob_`date +%d_%m_20%y_%H_%M_%S`.jar
+        mv SMSExecutorJob.jar /app/backup/SMSExecutorJob_`date +%d_%m_20%y_%H_%M_%S`.jar
         #echo "Backup JAR File"
-     
-    - pause:
-        seconds: 60
-        
+            
     - name: Copy Property file and Past it in Target tomcat Server
       copy:
         src: "{{ PROPERTIES }}"
         dest: "{{ OBSIDIAN_HOME_PATH }}/conf"   
-                 
+    
+    - name: Deploy the obsidian jar file into tomcat server application
+      copy:
+        src: "/tmp/obsidian/{{ ARTIFACT_ID }}-{{ VERSION }}-obsidian.{{ EXTENSION }}"
+        dest: "{{ OBSIDIAN_HOME_PATH }}/webapps/obsidian/WEB-INF/lib/SMSExecutorJob.jar"
+        remote_src: yes 
+		
     - name: To Start the tomcat application
       shell: |
         export JAVA_HOME="{{ JAVA_HOME }}"
@@ -58,18 +61,9 @@
         cd $OBSIDIAN_HOME/logs
         mv catalina.out catalina_`date +%d_%m_20%y_%H_%M_%S`.out
         cd $OBSIDIAN_HOME/bin
-        ./startup.sh
+        nohup ./startup.sh &
         echo "OBSIDIAN Application server stopped successfully"
-        echo "OBSIDIAN stopped `date +%d%m20%y_%H%M%S`" >> Obsidian_log.txt
-            
-    - pause:
-        seconds: 30
-      
-    - name: Deploy the obsidian jar file in tomcat server application
-      copy:
-        src: "/tmp/obsidian/{{ ARTIFACT_ID }}-{{ VERSION }}-obsidian.{{ EXTENSION }}"
-        dest: "{{ OBSIDIAN_HOME_PATH }}/webapps/obsidian/WEB-INF/lib/SMSExecutorJob.jar"
-        remote_src: yes   
+        echo "OBSIDIAN stopped `date +%d%m20%y_%H%M%S`" >> Obsidian_log.txt    
        
     - name: Clearing War file from tmp
       file:
