@@ -59,7 +59,7 @@
         src: "{{ PROPERTIES }}connection.properties"
         dest: "{{ JBOSS_HOME_PATH_01 }}/standalone/data"  
 
-     - name: Replace the BPM_DB password in properties file
+    - name: Replace the BPM_DB password in properties file
       replace:
         path: "{{ JBOSS_HOME_PATH_01 }}/standalone/data/connection.properties"
         regexp: 'xxxxxxxx'
