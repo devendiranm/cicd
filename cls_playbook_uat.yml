@@ -63,12 +63,12 @@
         kill -9 $a
         echo "Application Jboss01 down `date +%d%m20%y_%H%M%S`" >> /home/deploy/log.tx
 
-    - name: Copy UserRole.properties file and Past it in Target Jboss01 Server
+    - name: Copy UserRole.properties file and Paste it in Target Jboss01 Server
       copy:
         src: "{{ PROPERTIES }}UserRole.properties"
         dest: "{{ JBOSS_HOME_PATH_01 }}/standalone/data"
         
-    - name: Copy connection.properties file and Past it in Target Jboss01 Server
+    - name: Copy connection.properties file and Paste it in Target Jboss01 Server
       copy:
         src: "{{ PROPERTIES }}connection.properties"
         dest: "{{ JBOSS_HOME_PATH_01 }}/standalone/data"
@@ -91,7 +91,7 @@
         regexp: 'zzzzzzzz'
         replace: "{{ UAT_FSS_DB_PASS }}"
     
-    - name: Copy Templates file and Past it in Target Jboss01 Server
+    - name: Copy Templates file and Paste it in Target Jboss01 Server
       shell: |
         export JAVA_HOME="{{ JAVA_HOME }}"
         export PATH=$PATH:$JAVA_HOME/bin
