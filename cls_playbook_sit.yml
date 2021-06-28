@@ -32,7 +32,7 @@
         password: "{{ NEXUS_REPO_PASS }}"
         dest: "/tmp/cashless/{{ ARTIFACT_ID }}-{{ VERSION }}-cashless.{{ TEMPLATES_EXTENSION }}"
         
-    - name: Undeploy the ims.war file Jboss01 application
+    - name: Undeploy the cashless.war file Jboss01 application
       jboss:
         deploy_path: "{{ JBOSS_HOME_PATH_01 }}/standalone/deployments"
         deployment: cashless.war
@@ -49,12 +49,12 @@
         kill -9 $a
         echo "Application Jboss01 down `date +%d%m20%y_%H%M%S`" >> /home/deploy/log.tx
 
-    - name: Copy UserRole.properties file and Past it in Target Jboss01 Server
+    - name: Copy UserRole.properties file and Paste it in Target Jboss01 Server
       copy:
         src: "{{ PROPERTIES }}UserRole.properties"
         dest: "{{ JBOSS_HOME_PATH_01 }}/standalone/data"
         
-    - name: Copy connection.properties file and Past it in Target Jboss01 Server
+    - name: Copy connection.properties file and Paste it in Target Jboss01 Server
       copy:
         src: "{{ PROPERTIES }}connection.properties"
         dest: "{{ JBOSS_HOME_PATH_01 }}/standalone/data"  
@@ -111,7 +111,7 @@
     - pause:
         seconds: 30
       
-    - name: Deploy the ims.war file in Jboss01 application
+    - name: Deploy the cashless.war file in Jboss01 application
       jboss:
         src: "/tmp/cashless/{{ ARTIFACT_ID }}-{{ VERSION }}-cashless.{{ EXTENSION }}"
         deploy_path: "{{ JBOSS_HOME_PATH_01 }}/standalone/deployments"
