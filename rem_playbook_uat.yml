@@ -34,10 +34,8 @@
     - name: Move war file to deployment path
       shell: |
         FILE_PATH=/tmp/reimbursements
-        cp "$FILE_PATH/{{ ARTIFACT_ID }}-{{ VERSION }}-ims.{{ EXTENSION }}" /app/WAR_FILE/reimbursements/release/
         cp "$FILE_PATH/{{ ARTIFACT_ID }}-{{ VERSION }}-ims.{{ EXTENSION }}" $FILE_PATH/ims.war
-        cp "$FILE_PATH/{{ ARTIFACT_ID }}-{{ VERSION }}-ims.{{ TEMPLATES_EXTENSION }}" /app/WAR_FILE/reimbursements/release/
-    
+            
     - name: Undeploy the ims.war file Jboss01 application
       shell: |
         JBOSS_HOME="{{ JBOSS_HOME_PATH_01 }}"
