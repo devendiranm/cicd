@@ -1,6 +1,7 @@
-TARGET_DB_DEPLOYMENT_FILE_PATH: /u01/Deployment
-ORACLE_HOME: /u01/app/oracle/product/12.1.0.2/dbhome_1
-ORACLE_SID: glxysit
-PDB_NAME: GLXYSIT_PDB1
 NEXUS_REPO_PASS: "{{ vault_nexus_repo_pass }}"
-
+SIT_BPM_PASS: "{{ sit_bpm_password }}"
+SIT_DB_PASS: "{{ sit_db_password }}"
+SIT_FSS_DB_PASS: "{{ sit_fss_db_password }}"
+UAT_BPM_PASS: "{{ uat_bpm_password }}"
+UAT_DB_PASS: "{{ uat_db_password }}"
+UAT_FSS_DB_PASS: "{{ uat_fss_db_password }}"

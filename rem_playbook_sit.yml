@@ -48,15 +48,33 @@
         kill -9 $a
         echo "Application Jboss01 down `date +%d%m20%y_%H%M%S`" >> /home/deploy/log.tx
 
-    - name: Copy Property file and Past it in Target Jboss01 Server
+    - name: Copy UserRole.properties file and Past it in Target Jboss01 Server
       copy:
         src: "{{ PROPERTIES }}UserRole.properties"
         dest: "{{ JBOSS_HOME_PATH_01 }}/standalone/data"
         
-    - name: Copy Property file and Past it in Target Jboss01 Server
+    - name: Copy connection.properties file and Past it in Target Jboss01 Server
       copy:
         src: "{{ PROPERTIES }}connection.properties"
-        dest: "{{ JBOSS_HOME_PATH_01 }}/standalone/data"    
+        dest: "{{ JBOSS_HOME_PATH_01 }}/standalone/data"
+
+    - name: Replace the BPM_DB password in properties file
+      replace:
+        path: "{{ JBOSS_HOME_PATH_01 }}/standalone/data/connection.properties"
+        regexp: 'xxxxxxxx'
+        replace: "{{ SIT_BPM_PASS }}"
+
+    - name: Replace the DB_PASS password in properties file
+      replace:
+        path: "{{ JBOSS_HOME_PATH_01 }}/standalone/data/connection.properties"
+        regexp: 'yyyyyyyy'
+        replace: "{{ SIT_DB_PASS }}"
+        
+    - name: Replace the FSS_DB_PASS password in properties file
+      replace:
+        path: "{{ JBOSS_HOME_PATH_01 }}/standalone/data/connection.properties"
+        regexp: 'zzzzzzzz'
+        replace: "{{ SIT_FSS_DB_PASS }}"    
     
     - name: Copy Templates file and Past it in Target Jboss01 Server
       shell: |
