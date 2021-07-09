@@ -81,7 +81,7 @@
       replace:
         path: "{{ JBOSS_HOME_PATH_01 }}/standalone/data/connection.properties"
         regexp: 'yyyyyyyy'
-        replace: "{{ UAT_DB_PASS }}"
+        replace: "{{ UAT_ALLIED_DB_PASS }}"
     
     - name: Replace the FSS_DB_PASS password in properties file
       replace:
