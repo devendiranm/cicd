@@ -36,7 +36,7 @@
     "claimsapi_bitbucket_repo_name": "gal-claimsapi",
     "obsidian_bitbucket_repo_name": "gal-obsidian",
 	"bitbucket_branch_type": "release",
-	"cls_bitbucket_branch_name": "release0.1.0",
+	"cls_bitbucket_branch_name": "release0.1.1",
   	"rem_bitbucket_branch_name": "release0.1.4",
 	"allied_bitbucket_branch_name": "",
     "claimsapi_bitbucket_branch_name": "release0.0.1",
