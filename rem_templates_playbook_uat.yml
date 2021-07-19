@@ -19,7 +19,7 @@
         username: admin
         version: "{{ VERSION }}-ims"
         password: "{{ NEXUS_REPO_PASS }}"
-        dest: "/tmp/reimbursements{{ ARTIFACT_ID }}-{{ VERSION }}-ims.{{ TEMPLATES_EXTENSION }}"
+        dest: "/tmp/reimbursements/{{ ARTIFACT_ID }}-{{ VERSION }}-ims.{{ TEMPLATES_EXTENSION }}"
 
     - name: Copy Templates file and Past it in Target Jboss01 Server
       shell: |
