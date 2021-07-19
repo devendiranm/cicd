@@ -25,7 +25,8 @@
     "claimsapi_home_path": "/app/claimsapi",
     "obsidian_app_home_path": "/app/tomcat/apache-tomcat-9.0.22",
 	"email": "release_team@starhealth.in,bcc:build.alert@starhealth.in,bcc:a.raja@starhealth.in,bcc:v.saranraj@starhealth.in,bcc:satish.kumar@starhealth.in,bcc:nofel.riswan@starhealth.in,bcc:dineshkumar.m@starhealth.in"
-		},
+	},
+
 "UAT": {
     "galaxy_property_url": "https://bitbucket.starhealth.in/scm/ser/gal-properties.git",
   	"galaxy_property_branch": "master",
@@ -55,6 +56,38 @@
 	"galaxy_allied_jboss_home_path_01": "",
     "claimsapi_home_path": "/app/claimsapi",
     "obsidian_app_home_path":"/app/tomcat/apache-tomcat-9.0.22",
+	"email": "release_team@starhealth.in,bcc:build.alert@starhealth.in,bcc:a.raja@starhealth.in,bcc:v.saranraj@starhealth.in,bcc:satish.kumar@starhealth.in,bcc:nofel.riswan@starhealth.in,bcc:dineshkumar.m@starhealth.in"
+    },
+	
+"PREPROD": {
+    "galaxy_property_url": "https://bitbucket.starhealth.in/scm/ser/gal-properties.git",
+  	"galaxy_property_branch": "master",
+	"nexus_repo_url": "http://10.24.0.67:9010/repository/maven-releases-galaxy/",
+	"cashless_bitbucket_repo_name": "gal-cashless",
+  	"reimbursements_bitbucket_repo_name": "gal-reimbursements",
+	"allied_bitbucket_repo_name": "gal-allied",
+    "claimsapi_bitbucket_repo_name": "gal-claimsapi",
+    "obsidian_bitbucket_repo_name": "gal-obsidian",
+	"bitbucket_branch_type": "release",
+	"cls_bitbucket_branch_name": "release0.1.4",
+  	"rem_bitbucket_branch_name": "release0.1.8",
+	"allied_bitbucket_branch_name": "",
+    "claimsapi_bitbucket_branch_name": "release0.0.1",
+    "obsidian_bitbucket_branch_name": "release0.0.1",
+  	"extension": "war",
+	"templates_extension": "jar",
+    "claimsapi_extension": "jar",
+    "obsidian_extension": "jar",
+  	"hostname": "",
+  	"cls_jboss01_port": "10110",
+  	"rem_jboss01_port": "10090",
+	"allied_jboss01_port": "",
+	"galaxy_java_home": "/app/software/jdk1.8.0_151",
+	"galaxy_cls_jboss_home_path_01": "",
+  	"galaxy_rem_jboss_home_path_01": "",
+	"galaxy_allied_jboss_home_path_01": "",
+    "claimsapi_home_path": "",
+    "obsidian_app_home_path":"",
 	"email": "release_team@starhealth.in,bcc:build.alert@starhealth.in,bcc:a.raja@starhealth.in,bcc:v.saranraj@starhealth.in,bcc:satish.kumar@starhealth.in,bcc:nofel.riswan@starhealth.in,bcc:dineshkumar.m@starhealth.in"
     },
 	

@@ -1,0 +1,141 @@
+---
+- hosts: "{{ Env }}_App_Deployment"
+  become: yes
+  become_user: deploy
+  vars_files:
+    - "./vars/variables"
+    - "./vars/vault"
+  tasks:
+    - name: Creating allied directory war file download
+      file:
+        path: /tmp/allied
+        state: directory
+        
+    - maven_artifact:
+        group_id: "{{ GROUP_ID }}"
+        artifact_id: "{{ ARTIFACT_ID }}"
+        repository_url: "{{ NEXUS_REPO_URL }}"
+        extension: "{{ EXTENSION }}"
+        username: admin
+        version: "{{ VERSION }}-allied"
+        password: "{{ NEXUS_REPO_PASS }}"
+        dest: "/tmp/allied/{{ ARTIFACT_ID }}-{{ VERSION }}-allied.{{ EXTENSION }}"
+    
+    - maven_artifact:
+        group_id: "{{ GROUP_ID }}"
+        artifact_id: "{{ ARTIFACT_ID }}"
+        repository_url: "{{ NEXUS_REPO_URL }}"
+        extension: "{{ TEMPLATES_EXTENSION }}"
+        username: admin
+        version: "{{ VERSION }}-allied"
+        password: "{{ NEXUS_REPO_PASS }}"
+        dest: "/tmp/allied/{{ ARTIFACT_ID }}-{{ VERSION }}-allied.{{ TEMPLATES_EXTENSION }}"
+        
+    - name: Move war file to deployment path
+      shell: |
+        FILE_PATH=/tmp/allied
+        cp "$FILE_PATH/{{ ARTIFACT_ID }}-{{ VERSION }}-allied.{{ EXTENSION }}" $FILE_PATH/allied.war
+            
+    - name: Undeploy the allied.war file Jboss01 application
+      shell: |
+        JBOSS_HOME="{{ JBOSS_HOME_PATH_01 }}"
+        export JAVA_HOME="{{ JAVA_HOME }}"
+        export PATH=$PATH:$JAVA_HOME/bin
+        $JBOSS_HOME/bin/jboss-cli.sh -c --controller="{{ HOST }}":"{{ JBOSS01_PORT }}" --command=deployment-info | grep -i allied.war > /dev/null 2>&1
+        if [ "$?" == "0" ]; then
+        echo "Please wait removing allied.war file"
+        $JBOSS_HOME/bin/jboss-cli.sh -c --controller="{{ HOST }}":"{{ JBOSS01_PORT }}" --command="undeploy allied.war"
+        echo "allied WAR FILE UNDEPLOYED SUCCESSFULLY.............."
+        else
+        echo "allied.war file already removed" 
+        fi
+    
+    - pause:
+        seconds: 10
+        
+    - name: To down the Jboss01 application
+      shell: |
+        JBOSS_HOME="{{ JBOSS_HOME_PATH_01 }}"
+        a=`echo $(pwdx $(ps -ef | grep java | grep -v grep | awk '{ print $2 }') | grep $JBOSS_HOME/bin | tr -s ' ' | cut -d ':' -f1)`
+        # Killing the exact PID
+        kill -9 $a
+        echo "Application Jboss01 down `date +%d%m20%y_%H%M%S`" >> /home/deploy/log.tx
+
+    - name: Copy UserRole.properties file and Paste it in Target Jboss01 Server
+      copy:
+        src: "{{ PROPERTIES }}UserRole.properties"
+        dest: "{{ JBOSS_HOME_PATH_01 }}/standalone/data"
+        
+    - name: Copy connection.properties file and Paste it in Target Jboss01 Server
+      copy:
+        src: "{{ PROPERTIES }}connection.properties"
+        dest: "{{ JBOSS_HOME_PATH_01 }}/standalone/data"
+
+    - name: Replace the BPM_DB password in properties file
+      replace:
+        path: "{{ JBOSS_HOME_PATH_01 }}/standalone/data/connection.properties"
+        regexp: 'xxxxxxxx'
+        replace: "{{ UAT_BPM_PASS }}"
+
+    - name: Replace the DB_PASS password in properties file
+      replace:
+        path: "{{ JBOSS_HOME_PATH_01 }}/standalone/data/connection.properties"
+        regexp: 'yyyyyyyy'
+        replace: "{{ UAT_ALLIED_DB_PASS }}"
+    
+    - name: Replace the FSS_DB_PASS password in properties file
+      replace:
+        path: "{{ JBOSS_HOME_PATH_01 }}/standalone/data/connection.properties"
+        regexp: 'zzzzzzzz'
+        replace: "{{ UAT_FSS_DB_PASS }}"
+    
+    - name: Copy Templates file and Paste it in Target Jboss01 Server
+      shell: |
+        export JAVA_HOME="{{ JAVA_HOME }}"
+        export PATH=$PATH:$JAVA_HOME/bin
+        JBOSS_HOME="{{ JBOSS_HOME_PATH_01 }}"
+        cd $JBOSS_HOME/standalone/data/templates
+        jar -xvf "/tmp/allied/{{ ARTIFACT_ID }}-{{ VERSION }}-allied.{{ TEMPLATES_EXTENSION }}"
+
+    - pause:
+        seconds: 5
+              
+    - name: To Start the Jboss01 application
+      shell: |
+        export JAVA_HOME="{{ JAVA_HOME }}"
+        export PATH=$PATH:$JAVA_HOME/bin
+        JBOSS_HOME="{{ JBOSS_HOME_PATH_01 }}"
+        # Clearing the temps files
+        cd $JBOSS_HOME/standalone/tmp
+        rm -r *
+        echo "Removed temp directory"
+        #Removing the text and time data
+        cd $JBOSS_HOME/standalone/data
+        rm -r timer-service-data/ tx-object-store/
+        echo "Removed directories timer-service-data and tx-object-store"
+        # Start up the server
+        cd $JBOSS_HOME/bin/
+        mv nohup.out nohup_`date +%d_%m_20%y_%H_%M_%S`.out
+        nohup ./standalone.sh &
+        echo "JBOSS Application server started successfully"
+        echo "Application started `date +%d%m20%y_%H%M%S` " >> /home/deploy/log.txt
+            
+    - pause:
+        seconds: 60
+      
+    - name: Deploy the allied.war file in Jboss01 application
+      shell: |
+        FILE_PATH=/tmp/allied
+        JBOSS_HOME="{{ JBOSS_HOME_PATH_01 }}"
+        export JAVA_HOME="{{ JAVA_HOME }}"
+        export PATH=$PATH:$JAVA_HOME/bin
+        echo "Deploying allied.war file. . . "
+        $JBOSS_HOME/bin/jboss-cli.sh -c --controller="{{ HOST }}":"{{ JBOSS01_PORT }}" --command="deploy $FILE_PATH/allied.war"
+        if [ $? -eq 0 ]; then
+        break
+        fi
+       
+    - name: Clearing War file from tmp
+      file:
+        path: /tmp/allied
+        state: absent  

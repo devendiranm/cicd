@@ -1,0 +1,35 @@
+---
+- hosts: "{{ Env }}_App_Deployment"
+  become: yes
+  become_user: deploy
+  vars_files:
+    - "./vars/variables"
+    - "./vars/vault"
+  tasks:
+    - name: Creating allied directory
+      file:
+        path: /tmp/allied
+        state: directory
+        
+    - maven_artifact:
+        group_id: "{{ GROUP_ID }}"
+        artifact_id: "{{ ARTIFACT_ID }}"
+        repository_url: "{{ NEXUS_REPO_URL }}"
+        extension: "{{ TEMPLATES_EXTENSION }}"
+        username: admin
+        version: "{{ VERSION }}-allied"
+        password: "{{ NEXUS_REPO_PASS }}"
+        dest: "/tmp/allied/{{ ARTIFACT_ID }}-{{ VERSION }}-allied.{{ TEMPLATES_EXTENSION }}"
+
+    - name: Copy Templates file and Past it in Target Jboss01 Server
+      shell: |
+        export JAVA_HOME="{{ JAVA_HOME }}"
+        export PATH=$PATH:$JAVA_HOME/bin      
+        JBOSS_HOME="{{ JBOSS_HOME_PATH_01 }}"
+        cd $JBOSS_HOME/standalone/data/templates
+        jar -xvf "/tmp/allied/{{ ARTIFACT_ID }}-{{ VERSION }}-allied.{{ TEMPLATES_EXTENSION }}"
+
+    - name: Clearing War file from tmp
+      file:
+        path: /tmp/allied
+        state: absent

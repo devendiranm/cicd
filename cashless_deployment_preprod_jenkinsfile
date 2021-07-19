@@ -1,0 +1,169 @@
+pipeline
+{
+	agent
+	{
+        label 'Master'
+    }
+    options
+	{
+		buildDiscarder(
+			logRotator(
+                daysToKeepStr: '60',   // Build Records
+                artifactDaysToKeepStr: '60'  //Artifacts from builds older than this number of days will be deleted, but the logs, history, reports, etc for the build will be kept
+			)
+        )
+        timeout(50)
+        timestamps()
+        disableConcurrentBuilds()
+    }
+	parameters
+	{     
+		choice(
+			name: 'Environment',
+			choices: "PREPROD",
+			description: 'Select the Deployment Environment' )
+        booleanParam(
+			name: 'TEMPLATE', 
+			defaultValue: false, 
+			description: 'DEPLOYMENT for template file alone')
+	}
+	environment 
+	{ 
+           app_property_url = 'galaxy_property_url'
+		   app_property_branch = 'galaxy_property_branch'
+		   bitbucket_repo_name = 'cashless_bitbucket_repo_name'
+		   bitbucket_branch_type = 'bitbucket_branch_type'
+		   bitbucket_branch_name = 'cls_bitbucket_branch_name'
+		   extension_war = 'extension'
+		   extension_jar = 'templates_extension'
+           nexus_repo_url = 'nexus_repo_url'
+           hostname = 'hostname'
+           jboss_01_port = 'cls_jboss01_port'
+           java_home = 'galaxy_java_home'
+           jboss_home_path_01 = 'galaxy_cls_jboss_home_path_01'
+           EMAIL = 'email'
+	}
+    stages
+	{
+		stage('Checkout config file')
+    	{
+			steps
+			{
+				dir('config')
+				{
+					git branch:'master', credentialsId: "jenkin-bitbucket", url: 'https://bitbucket.starhealth.in/scm/cicd/galaxy.git'
+					echo 'checkout completed'                
+					script
+					{  
+						def props = readJSON file: "${env.WORKSPACE}/config/devops.json"
+						app_property_url = props["${params.Environment}"]['galaxy_property_url']
+                        app_property_branch = props["${params.Environment}"]['galaxy_property_branch']
+						bitbucket_repo_name = props["${params.Environment}"]['cashless_bitbucket_repo_name']
+						bitbucket_branch_type = props["${params.Environment}"]['bitbucket_branch_type']
+						bitbucket_branch_name = props["${params.Environment}"]['cls_bitbucket_branch_name']
+						extension_war = props["${params.Environment}"]['extension']
+						extension_jar = props["${params.Environment}"]['templates_extension']
+                        nexus_repo_url = props["${params.Environment}"]['nexus_repo_url']
+                        hostname = props["${params.Environment}"]['hostname']
+                        jboss_01_port = props["${params.Environment}"]['cls_jboss01_port']
+                        java_home = props["${params.Environment}"]['galaxy_java_home']
+                        jboss_home_path_01 = props["${params.Environment}"]['galaxy_cls_jboss_home_path_01']
+						EMAIL = props["${params.Environment}"]['email']
+                    }
+				}
+			}
+        }
+        stage('Checkout PROPERTIES files')
+    	{
+			steps
+			{
+            	dir('Files')
+                {
+            		git branch: app_property_branch, credentialsId: 'jenkin-bitbucket', url: app_property_url
+    				echo 'checkout completed'
+                    echo "${params.Environment}"
+                    echo "${params.TEMPLATE}"
+            	}
+            }
+        }
+    	stage('UAT Deployment')
+		{
+        	when
+			{
+				expression
+				{
+					return params.Environment == 'PREPROD' && params.TEMPLATE == false;
+				}
+			}
+			steps
+            {
+            	dir('config')
+   				{
+       				git branch:'master', credentialsId: 'jenkin-bitbucket', url: 'https://bitbucket.starhealth.in/scm/cicd/galaxy.git'
+       				echo 'checkout completed'
+            		echo 'Start UAT deployment'
+						ansiblePlaybook( 
+							become: true,
+							becomeUser: 'deploy',
+							credentialsId: 'b9d48739-b4dc-4914-b55a-7bf2d112c49d',
+							disableHostKeyChecking: true,
+							installation: 'ansible 2.9.12',
+							inventory: 'hosts',
+							playbook: 'cls_playbook_uat.yml',
+							sudoUser: null,
+							extraVars: [Env:"${params.Environment}",GROUP_ID:"${bitbucket_repo_name}",ARTIFACT_ID:"${bitbucket_branch_type}",EXTENSION:"${extension_war}",VERSION:"${bitbucket_branch_name}",PROPERTIES:"${env.WORKSPACE}/Files/PREPROD/cashless/",TEMPLATES_EXTENSION:"${extension_jar}",NEXUS_REPO_URL:"${nexus_repo_url}",JAVA_HOME:"${java_home}",JBOSS_HOME_PATH_01:"${jboss_home_path_01}",HOST:"${hostname}",JBOSS01_PORT:"${jboss_01_port}"]       
+						)
+            	}
+            }
+        }
+        stage('UAT TEMPLATE Alone Deployment')
+		{
+        	when
+			{
+				expression
+				{
+					params.Environment == 'PREPROD' && params.TEMPLATE == true;
+				}
+			}
+			steps
+            {
+            	dir('config')
+   				{
+       				git branch:'master', credentialsId: 'jenkin-bitbucket', url: 'https://bitbucket.starhealth.in/scm/cicd/galaxy.git'
+       				echo 'checkout completed'
+            		echo 'Start UAT template deployment'
+						ansiblePlaybook( 
+							become: true,
+							becomeUser: 'deploy',
+							credentialsId: 'b9d48739-b4dc-4914-b55a-7bf2d112c49d',
+							disableHostKeyChecking: true,
+							installation: 'ansible 2.9.12',
+							inventory: 'hosts',
+							playbook: 'cls_templates_playbook_preprod.yml',
+							sudoUser: null,
+							extraVars: [Env:"${params.Environment}",GROUP_ID:"${bitbucket_repo_name}",ARTIFACT_ID:"${bitbucket_branch_type}",VERSION:"${bitbucket_branch_name}",NEXUS_REPO_URL:"${nexus_repo_url}",JAVA_HOME:"${java_home}",PROPERTIES:"${env.WORKSPACE}/Files/PREPROD/cashless/",TEMPLATES_EXTENSION:"${extension_jar}",JBOSS_HOME_PATH_01:"${jboss_home_path_01}"]       
+						)
+            	}
+            }
+        }
+    }
+	post
+    { 
+		always
+        {
+			emailext (
+				attachLog: true, 
+                body: '''$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS: Check console output at $BUILD_URL to view the results.
+                
+                
+                
+            FROM,
+            Release Team''', 
+                compressLog: true, 
+                subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS', 
+                to: "${EMAIL}",
+                from: 'build.alert@starhealth.in'
+            )
+        }
+    }
+}
