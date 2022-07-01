@@ -219,7 +219,7 @@ def call(Map pipelineParams)
                       				version: "${env.BRANCH_NAME}-cashless"
 						)
            			}
-*/         		}
+        		} */
           		stage('CleanWorkspace')
     			{
             			steps
