@@ -66,8 +66,8 @@ def call(Map pipelineParams)
                 	}
 //              		sh "export MAVEN_OPTS=-Xmx2048m"
             		sh "mvn clean install"
-                  	sh '''cd templates
-						jar -cvf templates.jar *.*'''
+//                  	sh '''cd templates
+//						jar -cvf templates.jar *.*'''
               		echo 'Build completed'
             	}
        		}
@@ -155,7 +155,7 @@ def call(Map pipelineParams)
 //					}
 //                }
 //            }
-            stage("Uploading master WAR file to Nexus")
+//*            stage("Uploading master WAR file to Nexus")
 			{
             	when
 				{
@@ -220,7 +220,7 @@ def call(Map pipelineParams)
                       	version: "${env.BRANCH_NAME}-cashless"
 					)
            		}
-            }
+//*         }
           	stage('CleanWorkspace')
     		{
             	steps
