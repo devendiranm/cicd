@@ -154,7 +154,7 @@ def call(Map pipelineParams)
 //					}
 //                		}
 //            		}
-//*            		stage("Uploading master WAR file to Nexus")
+/*            		stage("Uploading master WAR file to Nexus")
 			{
             			when
 				{
@@ -219,7 +219,7 @@ def call(Map pipelineParams)
                       				version: "${env.BRANCH_NAME}-cashless"
 						)
            			}
-*//         		}
+*/         		}
           		stage('CleanWorkspace')
     			{
             			steps
