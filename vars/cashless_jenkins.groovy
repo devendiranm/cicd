@@ -4,7 +4,7 @@ def call(Map pipelineParams)
 	{
 		agent
   			{
-    				label 'slave1'
+    				label 'Linux'
     			}
     		options
   		{
