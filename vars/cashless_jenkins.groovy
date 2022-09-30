@@ -27,6 +27,7 @@ def call(Map pipelineParams)
           		bitbucket_repo = "gal-cashless"
           		branch_type = 'branch_type'
           		branch = 'branch'
+			mvn_home = tool 'maven' 
       		}
 		stages
   		{
@@ -68,7 +69,8 @@ def call(Map pipelineParams)
 						PATH="$M2_HOME/bin:$PATH"
 						export PATH
             					mvn clean install'''*/
-					sh 'mvn clean install'
+					sh '''${mvn_home}/bin 
+						mvn clean install'''
 //                  			sh '''cd templates
 //						jar -cvf templates.jar *.*'''
               				echo 'Build completed'
