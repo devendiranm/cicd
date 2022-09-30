@@ -64,10 +64,11 @@ def call(Map pipelineParams)
 						artifactType = pom.getPackaging()
                 			}
 //              			sh "export MAVEN_OPTS=-Xmx2048m"
-					sh '''M2_HOME=/opt/apache-maven-3.8.6
+					/*sh '''M2_HOME=/opt/apache-maven-3.8.6
 						PATH="$M2_HOME/bin:$PATH"
 						export PATH
-            					mvn clean install'''
+            					mvn clean install'''*/
+					sh 'mvn clean install'
 //                  			sh '''cd templates
 //						jar -cvf templates.jar *.*'''
               				echo 'Build completed'
