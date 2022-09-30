@@ -71,7 +71,7 @@ def call(Map pipelineParams)
 						export PATH
             					mvn clean install'''*/
 					//sh '${mvn_home}/bin/mvn clean install'
-					sh '${gradle}/bin gradle clean build'
+					sh '${gradle}/bin/gradle clean build'
 //                  			sh '''cd templates
 //						jar -cvf templates.jar *.*'''
               				echo 'Build completed'
