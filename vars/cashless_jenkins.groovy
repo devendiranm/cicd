@@ -4,7 +4,7 @@ def call(Map pipelineParams)
 	{
 		agent
   			{
-    				label 'slave2'
+    				label 'slave1'
     			}
     		options
   		{
