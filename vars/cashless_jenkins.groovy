@@ -70,7 +70,7 @@ def call(Map pipelineParams)
 						PATH="$M2_HOME/bin:$PATH"
 						export PATH
             					mvn clean install'''*/
-					sh "/opt/apache-maven-3.6.3/bin/mvn clean install"
+//					sh "/opt/apache-maven-3.6.3/bin/mvn clean install"
 					sh "/opt/gradle-5.0/bin/gradle clean build"
 //                  			sh '''cd templates
 //						jar -cvf templates.jar *.*'''
