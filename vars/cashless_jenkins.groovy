@@ -27,8 +27,8 @@ def call(Map pipelineParams)
           		bitbucket_repo = "gal-cashless"
           		branch_type = 'branch_type'
           		branch = 'branch'
-			mvn_home = tool 'maven'
-			gradle = tool 'gradle'
+		/*	mvn_home = tool 'maven'
+			gradle = tool 'gradle' */
       		}
 		stages
   		{
