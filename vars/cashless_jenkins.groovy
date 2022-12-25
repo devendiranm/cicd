@@ -195,7 +195,7 @@ def call(Map pipelineParams)
 						artifacts: [[artifactId: "${branch_type}", classifier: '', file: "target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
 						[artifactId: "${branch_type}",classifier: '', file: "pom.xml", type: "pom" ]],
                       				/*[artifactId: "${branch_type}",classifier: '', file: "templates/templates.jar", type: "jar" ]],*/
-                				credentialsId: 'd9f3ff8c-9dd2-4233-856f-db2921861c1a',
+                				credentialsId: 'nexus_cred',
                 				groupId: "${bitbucket_repo}",
                 				nexusUrl: (pipelineParams.nexus_url),
                 				nexusVersion: 'nexus3',
@@ -217,7 +217,7 @@ def call(Map pipelineParams)
 						artifacts: [[artifactId: "${env.BRANCH_NAME}", classifier: '', file: "target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
 						[artifactId: "${env.BRANCH_NAME}",classifier: '', file: "pom.xml", type: "pom" ]],
                       				/*[artifactId: "${env.BRANCH_NAME}",classifier: '', file: "templates/templates.jar", type: "jar" ]],*/
-                				credentialsId: 'd9f3ff8c-9dd2-4233-856f-db2921861c1a',
+                				credentialsId: 'nexus_cred',
                 				groupId: "${bitbucket_repo}",
                 				nexusUrl: (pipelineParams.nexus_url),
                 				nexusVersion: 'nexus3',
