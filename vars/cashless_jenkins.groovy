@@ -183,7 +183,7 @@ def call(Map pipelineParams)
 						)
            			}
             		}
-/*          		stage("Uploading Relese WAR file to Nexus")
+          		stage("Uploading Relese WAR file to Nexus")
 			{
             			when
 				{
@@ -193,8 +193,8 @@ def call(Map pipelineParams)
               			{
         				nexusArtifactUploader(
 						artifacts: [[artifactId: "${branch_type}", classifier: '', file: "target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
-						[artifactId: "${branch_type}",classifier: '', file: "pom.xml", type: "pom" ],
-                      				[artifactId: "${branch_type}",classifier: '', file: "templates/templates.jar", type: "jar" ]],
+						[artifactId: "${branch_type}",classifier: '', file: "pom.xml", type: "pom" ]],
+                      				/*[artifactId: "${branch_type}",classifier: '', file: "templates/templates.jar", type: "jar" ]],*/
                 				credentialsId: 'd9f3ff8c-9dd2-4233-856f-db2921861c1a',
                 				groupId: "${bitbucket_repo}",
                 				nexusUrl: (pipelineParams.nexus_url),
@@ -215,8 +215,8 @@ def call(Map pipelineParams)
 				{
 					nexusArtifactUploader(
 						artifacts: [[artifactId: "${env.BRANCH_NAME}", classifier: '', file: "target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
-						[artifactId: "${env.BRANCH_NAME}",classifier: '', file: "pom.xml", type: "pom" ],
-                      				[artifactId: "${env.BRANCH_NAME}",classifier: '', file: "templates/templates.jar", type: "jar" ]],
+						[artifactId: "${env.BRANCH_NAME}",classifier: '', file: "pom.xml", type: "pom" ]],
+                      				/*[artifactId: "${env.BRANCH_NAME}",classifier: '', file: "templates/templates.jar", type: "jar" ]],*/
                 				credentialsId: 'd9f3ff8c-9dd2-4233-856f-db2921861c1a',
                 				groupId: "${bitbucket_repo}",
                 				nexusUrl: (pipelineParams.nexus_url),
@@ -226,7 +226,7 @@ def call(Map pipelineParams)
                       				version: "${env.BRANCH_NAME}-cashless"
 						)
            			}
-        		} */
+        		}
           		stage('CleanWorkspace')
     			{
             			steps
