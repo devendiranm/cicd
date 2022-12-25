@@ -77,7 +77,7 @@ def call(Map pipelineParams)
               				echo 'Build completed'
             			}
        			}
-     			stage('Sonarqube master')
+/*    			stage('Sonarqube master')
 			{
             			when
 	              		{
@@ -97,7 +97,7 @@ def call(Map pipelineParams)
              					-Dsonar.sources=src/main/java/'''
 					}
                 		}
-            		}
+ */           		}
 //          		stage('Sonarqube release')
 //			{
 //            			when
@@ -161,7 +161,7 @@ def call(Map pipelineParams)
 //					}
 //                		}
 //            		}
-/*            		stage("Uploading master WAR file to Nexus")
+            		stage("Uploading master WAR file to Nexus")
 			{
             			when
 				{
@@ -183,7 +183,7 @@ def call(Map pipelineParams)
 						)
            			}
             		}
-          		stage("Uploading Relese WAR file to Nexus")
+/*          		stage("Uploading Relese WAR file to Nexus")
 			{
             			when
 				{
