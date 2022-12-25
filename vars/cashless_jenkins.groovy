@@ -171,7 +171,7 @@ def call(Map pipelineParams)
 				{
 					nexusArtifactUploader(
 						artifacts: [[artifactId: "${env.BRANCH_NAME}", classifier: '', file: "target/${projectArtifactId}-${projectVersion}.${artifactType}", type: "${artifactType}"],
-						[artifactId: "${env.BRANCH_NAME}",classifier: '', file: "pom.xml", type: "pom" ],
+						[artifactId: "${env.BRANCH_NAME}",classifier: '', file: "pom.xml", type: "pom" ]],
                       				/*[artifactId: "${env.BRANCH_NAME}",classifier: '', file: "templates/templates.jar", type: "jar" ]], */
                 				credentialsId: 'nexus_cred',
                 				groupId: "${bitbucket_repo}",
