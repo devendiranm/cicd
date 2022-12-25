@@ -97,7 +97,7 @@ def call(Map pipelineParams)
              					-Dsonar.sources=src/main/java/'''
 					}
                 		}
- */           		}
+            		} */
 //          		stage('Sonarqube release')
 //			{
 //            			when
