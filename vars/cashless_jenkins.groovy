@@ -77,27 +77,27 @@ def call(Map pipelineParams)
               				echo 'Build completed'
             			}
        			}
-//     			stage('Sonarqube master')
-//			{
-//            			when
-//              		{
-//                			branch 'master'
-//                		}
-//				environment
-//     				{
-//					SCANNER_HOME = tool 'SonarqubeScanner'
-//				}
-//				steps
-//     				{
-//      	       		   	withSonarQubeEnv('SonarQube')
-//         				{
-//						sh '''$SCANNER_HOME/bin/sonar-scanner \
-//						-Dsonar.projectKey=CASHLESS_MASTER \
-//						-Dsonar.java.binaries=target/classes/ \
-//             					-Dsonar.sources=src/main/java/'''
-//					}
-//                		}
-//            		}
+     			stage('Sonarqube master')
+			{
+            			when
+	              		{
+                			branch 'master'
+                		}
+				environment
+     				{
+					SCANNER_HOME = tool 'SonarqubeScanner'
+				}
+				steps
+     				{
+	      	       		   	withSonarQubeEnv('SonarQube')
+         				{
+						sh '''$SCANNER_HOME/bin/sonar-scanner \
+						-Dsonar.projectKey=CASHLESS_MASTER \
+						-Dsonar.java.binaries=target/classes/ \
+             					-Dsonar.sources=src/main/java/'''
+					}
+                		}
+            		}
 //          		stage('Sonarqube release')
 //			{
 //            			when
