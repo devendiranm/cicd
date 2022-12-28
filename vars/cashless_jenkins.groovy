@@ -231,7 +231,7 @@ def call(Map pipelineParams)
     			{
             			steps
               			{
-        				cleanWs()
+        				//cleanWs()
         				echo 'Cleaned workspace'
                 		}
             		}
